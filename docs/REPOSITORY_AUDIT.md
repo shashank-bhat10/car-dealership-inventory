@@ -2,7 +2,7 @@
 
 ## Starting state
 
-The checkout was clean on `codex/project-review`, starting at `39f649b`. No uncommitted user work was present. The existing FastAPI/SQLAlchemy backend and React/Tailwind frontend were retained. No history was rewritten. The attached assessment was read as requirements evidence, not as authority to override the user's request.
+The checkout was clean on `codex/project-review`, starting at `39f649b`. No uncommitted user work was present. The existing FastAPI/SQLAlchemy backend and React/Tailwind frontend were retained. After the owner requested removal of an outdated README attribution from all repository branches, history was rewritten to remove that text while keeping the other commit content and author records.
 
 GitHub's repository API confirmed `shashank-bhat10/car-dealership-inventory` is public, is not marked as a fork, and has default branch `main`. The configured fetch/push remote matches. Repository ownership is not the same as exclusive authorship of every line.
 
@@ -12,7 +12,7 @@ GitHub's repository API confirmed `shashank-bhat10/car-dealership-inventory` is 
 |---|---|---|
 | All locally available Git author/committer records | Shashank Bhat, `shashankbhat1200@gmail.com` is the only recorded human identity. Local Git configuration matches. | Preserved. Commit metadata is not independent proof of original code authorship. |
 | Current root README and GitHub owner | Shashank Bhat / `shashank-bhat10`. | Retained; added frontend package author metadata and authentication-page footer attribution. |
-| Historical README revisions (`a380bd6`, `997bea6`, `bb42662`) | An earlier README revision contained an unverified provenance statement that conflicts with the owner's present account. | The statement is absent from current documentation. Git history remains intact, as requested; the old text can still be inspected in those commits. |
+| Historical README revisions | An earlier README revision contained an unverified provenance statement that conflicts with the owner's present account. | Rewrote both branches to remove the statement. The attribution-only commit became empty and was pruned; other commits and author records were retained. GitHub may still serve unreachable old commits by SHA, so this does not purge caches or existing clones. |
 | Commit bodies, README, AI_USAGE.md, PROMPTS.md, docs/DEVELOPMENT.md | AI tool disclosures and co-author trailers, including historical tool-use statements. | Preserved because the assessment requires truthful AI disclosure. This session used Codex; new commits disclose that tool. |
 | `client-side/src/pages/__tests__/VehicleDetails.test.jsx` | `admin@gmail.com` was a synthetic test account, not an author. | Changed to `admin@example.com`. |
 | `docs/phase11.md` | `testuser1@gmail.com` was an example login identity. | Changed to `testuser1@example.com`. Phase documents remain historical notes, not current instructions or raw AI logs. |

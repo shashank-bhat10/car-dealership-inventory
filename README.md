@@ -221,10 +221,10 @@ The 24 October review ran **119 backend tests** and **72 frontend tests** succes
 
 ## My AI Usage
 
-This review used **Codex, OpenAI's coding assistant**, for repository/assessment inspection, regression tests, implementation, dependency updates, browser checks, screenshots, documentation and Git operations. New tests were run before the corresponding behavior changes: stock concurrency, validation, role visibility, unsupported statistics, filtering/pagination and safe health errors. Existing history was not rewritten to manufacture TDD evidence.
+This review used **Codex, OpenAI's coding assistant**, for repository/assessment inspection, regression tests, implementation, dependency updates, browser checks, screenshots, documentation and Git operations. New tests were run before the corresponding behavior changes: stock concurrency, validation, role visibility, unsupported statistics, filtering/pagination and safe health errors. A later history rewrite removed an obsolete README attribution; it did not change test evidence or manufacture TDD history.
 
 Earlier repository documentation records **ChatGPT** assistance and claims planning/UI assistance from **Amazon Q** and **Gemini**. Those historical disclosures remain in [AI_USAGE.md](AI_USAGE.md); this review does not independently verify missing raw conversations. [PROMPTS.md](PROMPTS.md) preserves existing conversation links and lists records still needed, including this Codex session.
 
 **Personal wording required from Shashank Bhat:** explain which suggestions you personally reviewed, which tests you personally ran, what you changed, and what you learned. The automated tests and reviews in this session were performed by the assistant. They must not be represented as your own manual review. No personal reflection is invented here.
 
-AI-assisted commits from this session use `Co-authored-by: Codex <AI@users.noreply.github.com>`. Git collapsed the first backend commit trailer spacing; AI_USAGE.md discloses the deviation, and subsequent commits preserve two empty lines. Historical attribution omissions remain disclosed; Git history is preserved.
+AI-assisted commits from this session use `Co-authored-by: Codex <AI@users.noreply.github.com>`. Git collapsed the first backend commit trailer spacing; AI_USAGE.md discloses the deviation, and subsequent commits preserve two empty lines. Commit history was rewritten to remove the obsolete README attribution; author records and AI disclosures were retained.

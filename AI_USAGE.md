@@ -53,10 +53,10 @@ The full raw export or public share link for the private ChatGPT conversation, t
 
 Codex inspected the existing repository and assessment, wrote and ran regression tests before behavior changes, fixed stock concurrency and validation, improved UI accessibility and mobile navigation, updated dependencies, captured actual application screenshots, and prepared documentation and Git changes. Results are in TEST_REPORT.md. The codebase was retained rather than recreated.
 
-No new Gemini or Amazon Q use is claimed. Existing statements above describe prior repository records and were not independently revalidated in this session. Historical ChatGPT trailers remain unchanged. New assisted commits use `Co-authored-by: Codex <AI@users.noreply.github.com>` with two empty lines before the trailer.
+No new Gemini or Amazon Q use is claimed. Existing statements above describe prior repository records and were not independently revalidated in this session. Historical ChatGPT trailer text and commit author records were retained during the later repository history rewrite, which removed the obsolete README attribution. New assisted commits use `Co-authored-by: Codex <AI@users.noreply.github.com>` with two empty lines before the trailer.
 
 The complete raw export or a public share link for this Codex session must be added by Shashank. This document is a disclosure summary, not a raw conversation log.
 
 ### Trailer spacing correction
 
-Backend review commit `6bd3cf6` includes the truthful Codex co-author trailer, but Git default cleanup collapsed the requested two blank lines to one. Subsequent review commits use `--cleanup=verbatim` to preserve exact spacing. The backend commit was not amended because history rewriting was prohibited.
+The backend review commit includes the truthful Codex co-author trailer, but Git default cleanup collapsed the requested two blank lines to one. Subsequent review commits use `--cleanup=verbatim` to preserve exact spacing. The later history rewrite preserved that trailer and its spacing.
