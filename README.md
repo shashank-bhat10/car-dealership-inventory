@@ -943,21 +943,27 @@ The following screenshots show the current application UI.
 
 ## Login
 
+![Login page](outputs/login.jpg)
 
 ## Register
 
+![Registration page](outputs/register.jpg)
 
 ## Dashboard
 
+![User dashboard](outputs/user/user_dashboard.jpg)
 
 ## Vehicle Catalog
 
+![Vehicle inventory](outputs/user/user_searchbar.jpg)
 
 ## Vehicle Details
 
+![Purchase flow](outputs/user/user_purchase.jpg)
 
 ## Add Vehicle
 
+![Admin vehicle form](outputs/admin/admin_addVehicle.jpg)
 
 ---
 
@@ -1094,8 +1100,23 @@ AI helped me find gaps faster and draft focused tests. I reviewed the changes, r
 
 # OUTPUTS
 
+![Login Screenshot](outputs/login.jpg)
+![Logout Screenshot](outputs/logout.jpg)
+![Out of Stock Screenshot](outputs/out_of_stock.jpg)
+![Register Screenshot](outputs/register.jpg)
 
+![Admin Add Vehicle](outputs/admin/admin_addVehicle.jpg)
+![Admin Dashboard](outputs/admin/admin_dashboard.jpg)
+![Admin Delete Confirmation](outputs/admin/admin_deleteConfirmation.jpg)
+![Admin Purchase](outputs/admin/admin_purchase.jpg)
+![Admin Restock Delete Vehicle](outputs/admin/admin_restock_deleteVehicle.jpg)
+![Admin Search Bar](outputs/admin/admin_searchbar.jpg)
 
+![User Cannot Add Vehicle](outputs/user/user_cannot_addVehiclle.jpg)
+![User Cannot Restock/Delete](outputs/user/user_cannot_restock_delete.jpg)
+![User Dashboard](outputs/user/user_dashboard.jpg)
+![User Purchase](outputs/user/user_purchase.jpg)
+![User Search Bar](outputs/user/user_searchbar.jpg)
 
 ---
 
