@@ -1,0 +1,78 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: dealership
+          POSTGRES_PASSWORD: ci-only-password
+          POSTGRES_DB: migration_smoke
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U dealership -d migration_smoke"
+          --health-interval 10s --health-timeout 5s --health-retries 5
+    defaults:
+      run:
+        working-directory: server-side
+    env:
+      DATABASE_URL: sqlite:///./app-test.db
+      TEST_DATABASE_URL: sqlite:///./test-suite.db
+      JWT_SECRET_KEY: test-secret-key-for-tests
+      POSTGRES_MIGRATION_TEST_URL: postgresql://dealership:ci-only-password@localhost:5432/migration_smoke
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: server-side/requirements.txt
+      - name: Install dependencies in the documented virtual environment
+        run: |
+          python -m venv .venv
+          .venv/bin/python -m pip install -r requirements.txt
+      - name: Run API and fresh database migration tests
+        run: |
+          set -o pipefail
+          .venv/bin/python -m pytest -q --tb=short | tee backend-results.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: backend-test-results
+          path: server-side/backend-results.txt
+
+  frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: client-side
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: client-side/package-lock.json
+      - run: npm ci
+      - name: Run frontend tests
+        run: |
+          set -o pipefail
+          npm run test:run | tee frontend-results.txt
+      - run: npm run build
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: frontend-test-results
+          path: client-side/frontend-results.txt
