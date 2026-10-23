@@ -1,10 +1,19 @@
-from pydantic import BaseModel, EmailStr
+from typing import Annotated
+
+from pydantic import BaseModel, EmailStr, Field, StringConstraints, field_validator
 
 
 class RegisterRequest(BaseModel):
-    username: str
+    username: Annotated[str, StringConstraints(strip_whitespace=True, min_length=1, max_length=100)]
     email: EmailStr
-    password: str
+    password: str = Field(min_length=6)
+
+    @field_validator('password')
+    @classmethod
+    def password_fits_bcrypt(cls, value):
+        if len(value.encode('utf-8')) > 72:
+            raise ValueError('Password cannot exceed 72 UTF-8 bytes')
+        return value
 
 
 class RegisterResponse(BaseModel):

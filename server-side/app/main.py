@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import text
 
@@ -43,10 +43,7 @@ def database_test():
         with engine.connect() as connection:
             connection.execute(text("SELECT 1"))
 
-        return {"message": "PostgreSQL connection successful"}
+        return {"message": "Database connection successful"}
 
-    except Exception as e:
-        return {
-            "message": "PostgreSQL connection failed",
-            "error": str(e),
-        }
+    except Exception:
+        raise HTTPException(status_code=503, detail="Database connection unavailable")

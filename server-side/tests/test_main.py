@@ -12,7 +12,7 @@ def test_database_test_endpoint(client):
 
     assert response.status_code == 200
     assert response.json() == {
-        "message": "PostgreSQL connection successful"
+        "message": "Database connection successful"
     }
 
 def test_database_test_endpoint_failure(monkeypatch, client):
@@ -26,6 +26,5 @@ def test_database_test_endpoint_failure(monkeypatch, client):
 
     response = client.get("/db-test")
 
-    assert response.status_code == 200
-    assert response.json()["message"] == "PostgreSQL connection failed"
-    assert response.json()["error"] == "Database connection failed"
+    assert response.status_code == 503
+    assert response.json() == {"detail": "Database connection unavailable"}

@@ -78,7 +78,6 @@ def get_user(
 # =========================
 
 @router.patch("/{user_id}")
-@router.patch("/{user_id}")
 def update_user(
     user_id: int,
     user_data: UserUpdate,
