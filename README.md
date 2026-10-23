@@ -29,7 +29,7 @@ React calls the REST API using HTTP and sends a JWT in the `Authorization` heade
 
 ## Local setup
 
-Use Python 3.12, Node.js 24, npm and PostgreSQL 16 or later. Two terminals are needed: one for the backend and one for the frontend.
+Use Python 3.12, Node.js 24, npm and PostgreSQL 16 (the version used in CI). Two terminals are needed: one for the backend and one for the frontend.
 
 ### 1. Clone
 

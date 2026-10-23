@@ -278,3 +278,6 @@ Thumbs.db
 
 # Logs
 *.log
+# Local file-based application and test databases
+server-side/*.db
+server-side/*.db-*
