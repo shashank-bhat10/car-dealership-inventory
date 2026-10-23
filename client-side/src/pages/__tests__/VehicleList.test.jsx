@@ -89,6 +89,22 @@ const renderVehicleList = () => {
 
 describe('VehicleList', () => {
 
+  it('can request vehicles beyond the first hundred', async () => {
+    searchVehicles.mockResolvedValueOnce(Array.from({ length: 100 }, (_, index) => ({ ...mockVehicles[0], id: index + 1 })))
+    renderVehicleList()
+    const next = await screen.findByRole('button', { name: /next page/i })
+    fireEvent.click(next)
+    await waitFor(() => expect(searchVehicles).toHaveBeenLastCalledWith(expect.objectContaining({ page: 2 })))
+  })
+
+  it('keeps the search field focused during filtering', async () => {
+    renderVehicleList()
+    const search = await screen.findByPlaceholderText('Search by make or model...')
+    search.focus()
+    fireEvent.change(search, { target: { value: 'Toy' } })
+    expect(search).toHaveFocus()
+  })
+
   beforeEach(() => {
     vi.clearAllMocks()
 

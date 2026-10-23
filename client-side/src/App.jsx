@@ -1,5 +1,6 @@
 import {
   BrowserRouter,
+  Link,
   Routes,
   Route,
   Navigate,
@@ -39,6 +40,9 @@ function Dashboard() {
           <p className="mt-3 text-slate-400">
             Manage your vehicle inventory and account.
           </p>
+          <Link to="/vehicles" className="mt-6 inline-flex rounded-xl bg-indigo-600 px-5 py-3 font-semibold hover:bg-indigo-500">
+            Browse vehicle inventory →
+          </Link>
         </div>
 
         {/* User Information */}

@@ -12,7 +12,7 @@ import {
 } from 'react-router-dom'
 
 import VehicleDetails from '../VehicleDetails'
-import { AuthProvider } from '../../context/AuthContext'
+import { AuthProvider } from '../../context/AuthProvider'
 
 const mockGetCurrentUser = vi.fn()
 
@@ -87,6 +87,15 @@ const findVehicleName = async () => {
 
 describe('VehicleDetails', () => {
 
+  it('hides inventory management actions from customers', async () => {
+    mockGetCurrentUser.mockResolvedValue({ username: 'customer', role: 'USER' })
+    renderVehicleDetails()
+    await findVehicleName()
+    expect(screen.queryByRole('button', { name: /restock/i })).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: /delete vehicle/i })).not.toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /purchase 1/i })).toBeEnabled()
+  })
+
   beforeEach(() => {
     vi.clearAllMocks()
 
@@ -95,7 +104,7 @@ describe('VehicleDetails', () => {
     mockGetCurrentUser.mockResolvedValue({
       id: 1,
       username: 'admin',
-      email: 'admin@gmail.com',
+      email: 'admin@example.com',
       role: 'ADMIN',
     })
 

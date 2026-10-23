@@ -28,6 +28,7 @@ function VehicleList() {
   const [minPrice, setMinPrice] = useState('')
   const [maxPrice, setMaxPrice] = useState('')
   const [stockOnly, setStockOnly] = useState(false)
+  const [page, setPage] = useState(1)
 
 
   /* =========================================================
@@ -45,7 +46,7 @@ function VehicleList() {
           category: category === 'All' ? '' : category,
           min_price: minPrice,
           max_price: maxPrice,
-          page: 1,
+          page,
           limit: 100,
         })
 
@@ -76,7 +77,7 @@ function VehicleList() {
     return () => {
       active = false
     }
-  }, [search, category, minPrice, maxPrice])
+  }, [search, category, minPrice, maxPrice, page])
 
 
   /* =========================================================
@@ -133,6 +134,7 @@ function VehicleList() {
     setMinPrice('')
     setMaxPrice('')
     setStockOnly(false)
+    setPage(1)
   }
 
 
@@ -185,36 +187,6 @@ function VehicleList() {
      LOADING
   ========================================================= */
 
-  if (loading) {
-    return (
-      <div className="app-shell">
-
-        <div className="loading-container">
-
-          <div>
-
-            <div className="spinner"></div>
-
-            <p
-              style={{
-                marginTop: '15px',
-                color: '#64748b',
-                fontSize: '13px',
-                textAlign: 'center',
-              }}
-            >
-              Loading vehicle inventory...
-            </p>
-
-          </div>
-
-        </div>
-
-      </div>
-    )
-  }
-
-
   /* =========================================================
      MAIN
   ========================================================= */
@@ -238,15 +210,11 @@ function VehicleList() {
             </div>
 
             <h1 className="catalog-title">
-              Find Your
-              <br />
-              Next Drive.
+              Vehicle inventory
             </h1>
 
             <p className="catalog-description">
-              Explore our dealership inventory
-              and discover vehicles ready for
-              the road.
+              Browse vehicles, compare prices, and keep stock up to date.
             </p>
 
           </div>
@@ -285,13 +253,15 @@ function VehicleList() {
             </span>
 
             <input
+              aria-label="Search by make or model"
               className="search-input"
               type="text"
               placeholder="Search by make or model..."
               value={search}
-              onChange={(event) =>
+              onChange={(event) => {
                 setSearch(event.target.value)
-              }
+                setPage(1)
+              }}
             />
 
           </div>
@@ -307,15 +277,17 @@ function VehicleList() {
 
               <button
                 key={item}
+                aria-pressed={category === item}
                 type="button"
                 className={`filter-pill ${
                   category === item
                     ? 'active'
                     : ''
                 }`}
-                onClick={() =>
+                onClick={() => {
                   setCategory(item)
-                }
+                  setPage(1)
+                }}
               >
                 {item}
               </button>
@@ -348,10 +320,12 @@ function VehicleList() {
               type="number"
               min="0"
               placeholder="Min price ₹"
+              aria-label="Minimum price in rupees"
               value={minPrice}
-              onChange={(event) =>
+              onChange={(event) => {
                 setMinPrice(event.target.value)
-              }
+                setPage(1)
+              }}
             />
 
             <input
@@ -365,10 +339,12 @@ function VehicleList() {
               type="number"
               min="0"
               placeholder="Max price ₹"
+              aria-label="Maximum price in rupees"
               value={maxPrice}
-              onChange={(event) =>
+              onChange={(event) => {
                 setMaxPrice(event.target.value)
-              }
+                setPage(1)
+              }}
             />
 
 
@@ -376,6 +352,7 @@ function VehicleList() {
 
             <button
               type="button"
+              aria-pressed={stockOnly}
               className={`filter-pill ${
                 stockOnly
                   ? 'active'
@@ -430,11 +407,19 @@ function VehicleList() {
               {filteredVehicles.length}
             </strong>{' '}
 
-            of {vehicles.length} vehicles
+            of {vehicles.length} vehicles on this page
 
           </div>
 
         </div>
+
+        <nav aria-label="Inventory pages" className="mb-6 flex flex-wrap items-center gap-3">
+          <button className="view-btn px-4 py-2" disabled={loading || page === 1}
+            onClick={() => setPage(page - 1)}>Previous page</button>
+          <span role="status" className="text-sm text-slate-400">{loading ? 'Loading vehicle inventory...' : `Page ${page}`}</span>
+          <button className="view-btn px-4 py-2" disabled={loading || vehicles.length < 100}
+            onClick={() => setPage(page + 1)}>Next page</button>
+        </nav>
 
 
         {/* =====================================================
@@ -443,7 +428,7 @@ function VehicleList() {
 
         {error && (
 
-          <div className="error-box">
+          <div className="error-box" role="alert">
             {error}
           </div>
 
@@ -569,7 +554,7 @@ function VehicleList() {
                             className="purchase-btn"
                             disabled={
                               !inStock ||
-                              isPurchasing
+                              isPurchasing || loading
                             }
                             onClick={() =>
                               handlePurchase(vehicle)

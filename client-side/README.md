@@ -1,16 +1,17 @@
-# React + Vite
+# AutoVault frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React, Vite and Tailwind CSS frontend for Shashank Bhat's Car Dealership Inventory System. Follow the [root setup instructions](../README.md) to start the persistent database and FastAPI backend first.
 
-Currently, two official plugins are available:
+Run from this directory:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```sh
+npm ci
+npm run dev
+npm run test:run
+npm run lint
+npm run build
+```
 
-## React Compiler
+The default API address is `http://127.0.0.1:8000`. Copy `.env.example` to `.env` to override `VITE_API_BASE_URL`. Vite variables are public browser configuration; never put secrets there. Restart Vite after changing them. Local development uses port 5173, allowed by the backend CORS configuration.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Authentication state lives in `src/context`, API calls in `src/services`, guards in `src/routes` and screens in `src/pages`. The backend enforces permissions. See the root [test report](../TEST_REPORT.md) for actual results.

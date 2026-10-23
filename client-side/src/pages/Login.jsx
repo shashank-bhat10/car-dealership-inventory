@@ -12,8 +12,8 @@ import {
   AlertCircle,
   ShieldCheck,
   Star,
-  Users,
-  Activity,
+
+
 } from 'lucide-react'
 
 import { useAuth } from '../context/AuthContext'
@@ -136,72 +136,6 @@ function Login() {
               </p>
 
 
-              {/* Stats */}
-
-              <div className="mt-10 grid max-w-xl grid-cols-3 gap-3">
-
-                <div className="rounded-2xl border border-slate-800/80 bg-slate-900/50 p-4 backdrop-blur-xl">
-
-                  <div className="flex items-center gap-2 text-indigo-400">
-                    <Car size={16} />
-                    <span className="text-xs text-slate-500">
-                      Fleet
-                    </span>
-                  </div>
-
-                  <strong className="mt-2 block text-2xl font-bold text-white">
-                    24+
-                  </strong>
-
-                  <span className="text-xs text-slate-500">
-                    Vehicles
-                  </span>
-
-                </div>
-
-
-                <div className="rounded-2xl border border-slate-800/80 bg-slate-900/50 p-4 backdrop-blur-xl">
-
-                  <div className="flex items-center gap-2 text-emerald-400">
-                    <Users size={16} />
-                    <span className="text-xs text-slate-500">
-                      Units
-                    </span>
-                  </div>
-
-                  <strong className="mt-2 block text-2xl font-bold text-white">
-                    1.2K
-                  </strong>
-
-                  <span className="text-xs text-slate-500">
-                    Managed
-                  </span>
-
-                </div>
-
-
-                <div className="rounded-2xl border border-slate-800/80 bg-slate-900/50 p-4 backdrop-blur-xl">
-
-                  <div className="flex items-center gap-2 text-amber-400">
-                    <Activity size={16} />
-                    <span className="text-xs text-slate-500">
-                      Uptime
-                    </span>
-                  </div>
-
-                  <strong className="mt-2 block text-2xl font-bold text-white">
-                    99.9%
-                  </strong>
-
-                  <span className="text-xs text-slate-500">
-                    Availability
-                  </span>
-
-                </div>
-
-              </div>
-
-
               {/* Features */}
 
               <div className="mt-8 grid gap-3 sm:grid-cols-2">
@@ -219,7 +153,7 @@ function Login() {
                     size={17}
                     className="text-emerald-400"
                   />
-                  Track stock in real time
+                  Purchase and restock vehicles
                 </div>
 
                 <div className="flex items-center gap-3 text-sm text-slate-400">
@@ -246,7 +180,7 @@ function Login() {
             {/* Footer */}
 
             <div className="text-xs text-slate-600">
-              © 2026 AutoVault · Secure dealership platform
+              © 2026 Shashank Bhat · AutoVault
             </div>
 
           </div>

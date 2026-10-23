@@ -226,7 +226,7 @@
 
   margin: auto;
 
-  padding: 75px 0 110px;
+  padding: 36px 0 72px;
 
   position: relative;
 }
@@ -240,9 +240,9 @@
   align-items: flex-end;
   justify-content: space-between;
 
-  gap: 40px;
+  gap: 24px;
 
-  margin-bottom: 48px;
+  margin-bottom: 28px;
 }
 
 .eyebrow {
@@ -291,9 +291,9 @@
 
   color: white;
 
-  font-size: clamp(52px, 6vw, 82px);
+  font-size: clamp(32px, 4vw, 52px);
 
-  line-height: 0.95;
+  line-height: 1.1;
 
   letter-spacing: -0.055em;
 
@@ -435,6 +435,7 @@
 
 .filter-row {
   display: flex;
+  flex-wrap: wrap;
 
   align-items: center;
 
@@ -442,7 +443,7 @@
 
   margin-top: 17px;
 
-  overflow-x: auto;
+  overflow: visible;
 
   padding-bottom: 2px;
 }
@@ -920,11 +921,17 @@
 
 @media (max-width: 850px) {
   .autovault-navbar {
-    padding: 0 20px;
+    padding: 12px 20px;
+    height: auto;
+    flex-wrap: wrap;
+    gap: 12px;
   }
 
   .nav-center {
-    display: none;
+    display: flex;
+    order: 3;
+    width: 100%;
+    flex-wrap: wrap;
   }
 
   .catalog {
@@ -942,11 +949,11 @@
   .catalog {
     width: calc(100% - 24px);
 
-    padding-top: 45px;
+    padding-top: 24px;
   }
 
   .catalog-title {
-    font-size: 48px;
+    font-size: 34px;
   }
 
   .vehicle-grid {
@@ -962,6 +969,11 @@
   }
 
   .nav-right {
+    display: flex;
+    margin-left: auto;
+  }
+
+  .nav-right > span, .nav-right .role-badge {
     display: none;
   }
 }

@@ -43,38 +43,24 @@ function VehicleDetails() {
      LOAD VEHICLE
   ========================================================= */
 
-  const loadVehicle = async () => {
-    try {
-      setLoading(true)
-      setError('')
-
-      const id = Number(vehicleId)
-
-      if (!Number.isInteger(id)) {
-        throw new Error('Invalid vehicle ID')
-      }
-
-      const data = await getVehicle(id)
-
-      setVehicle(data)
-    } catch (error) {
-      console.error(
-        'Load vehicle error:',
-        error
-      )
-
-      setError(
-        error.message ||
-        'Unable to load vehicle.'
-      )
-    } finally {
-      setLoading(false)
-    }
-  }
-
-
   useEffect(() => {
+    let active = true
+    const loadVehicle = async () => {
+      try {
+        const id = Number(vehicleId)
+        if (!Number.isInteger(id) || id < 1) {
+          throw new Error('Invalid vehicle ID')
+        }
+        const data = await getVehicle(id)
+        if (active) setVehicle(data)
+      } catch (error) {
+        if (active) setError(error.message || 'Unable to load vehicle.')
+      } finally {
+        if (active) setLoading(false)
+      }
+    }
     loadVehicle()
+    return () => { active = false }
   }, [vehicleId])
 
 
@@ -138,6 +124,7 @@ function VehicleDetails() {
   ========================================================= */
 
   const handleRestock = async () => {
+    if (!isAdmin) return
     try {
       setError('')
       setRestockLoading(true)
@@ -507,7 +494,7 @@ function VehicleDetails() {
               )}
 
               {/* RESTOCK */}
-
+              {isAdmin && <>
               <button
                 type="button"
                 className="view-btn"
@@ -555,6 +542,7 @@ function VehicleDetails() {
                   ? 'Deleting...'
                   : 'Delete Vehicle'}
               </button>
+              </>}
 
             </div>
 

@@ -157,14 +157,14 @@ function AddVehicle() {
 
               {/* Make */}
               <div>
-                <label className="flex items-center gap-2 mb-2 text-sm font-semibold text-slate-300">
+                <label htmlFor="add-make" className="flex items-center gap-2 mb-2 text-sm font-semibold text-slate-300">
                   <Car className="w-4 h-4 text-indigo-400" />
                   Make
                 </label>
 
                 <input
                   type="text"
-                  name="make"
+                  id="add-make" name="make"
                   value={formData.make}
                   onChange={handleChange}
                   placeholder="e.g. Toyota"
@@ -175,14 +175,14 @@ function AddVehicle() {
 
               {/* Model */}
               <div>
-                <label className="flex items-center gap-2 mb-2 text-sm font-semibold text-slate-300">
+                <label htmlFor="add-model" className="flex items-center gap-2 mb-2 text-sm font-semibold text-slate-300">
                   <Tag className="w-4 h-4 text-indigo-400" />
                   Model
                 </label>
 
                 <input
                   type="text"
-                  name="model"
+                  id="add-model" name="model"
                   value={formData.model}
                   onChange={handleChange}
                   placeholder="e.g. Camry"
@@ -193,13 +193,13 @@ function AddVehicle() {
 
               {/* Category */}
               <div>
-                <label className="flex items-center gap-2 mb-2 text-sm font-semibold text-slate-300">
+                <label htmlFor="add-category" className="flex items-center gap-2 mb-2 text-sm font-semibold text-slate-300">
                   <Package className="w-4 h-4 text-indigo-400" />
                   Category
                 </label>
 
                 <select
-                  name="category"
+                  id="add-category" name="category"
                   value={formData.category}
                   onChange={handleChange}
                   required
@@ -237,14 +237,14 @@ function AddVehicle() {
 
               {/* Price */}
               <div>
-                <label className="flex items-center gap-2 mb-2 text-sm font-semibold text-slate-300">
+                <label htmlFor="add-price" className="flex items-center gap-2 mb-2 text-sm font-semibold text-slate-300">
                   <DollarSign className="w-4 h-4 text-indigo-400" />
                   Price
                 </label>
 
                 <input
                   type="number"
-                  name="price"
+                  id="add-price" name="price"
                   value={formData.price}
                   onChange={handleChange}
                   placeholder="25000"
@@ -257,14 +257,14 @@ function AddVehicle() {
 
               {/* Quantity */}
               <div className="md:col-span-2">
-                <label className="flex items-center gap-2 mb-2 text-sm font-semibold text-slate-300">
+                <label htmlFor="add-quantity" className="flex items-center gap-2 mb-2 text-sm font-semibold text-slate-300">
                   <Hash className="w-4 h-4 text-indigo-400" />
                   Quantity
                 </label>
 
                 <input
                   type="number"
-                  name="quantity"
+                  id="add-quantity" name="quantity"
                   value={formData.quantity}
                   onChange={handleChange}
                   placeholder="5"
