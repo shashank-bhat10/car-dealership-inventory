@@ -64,6 +64,10 @@ export const restockVehicle = async (
 export const searchVehicles = async (params) => {
   const query = new URLSearchParams()
 
+  if (params.q?.trim()) {
+    query.set('q', params.q.trim())
+  }
+
   if (params.make) {
     query.set('make', params.make)
   }
@@ -76,12 +80,20 @@ export const searchVehicles = async (params) => {
     query.set('category', params.category)
   }
 
-  if (params.min_price !== undefined) {
+  if (params.min_price !== undefined && params.min_price !== '') {
     query.set('min_price', params.min_price)
   }
 
-  if (params.max_price !== undefined) {
+  if (params.max_price !== undefined && params.max_price !== '') {
     query.set('max_price', params.max_price)
+  }
+
+  if (params.page) {
+    query.set('page', params.page)
+  }
+
+  if (params.limit) {
+    query.set('limit', params.limit)
   }
 
   return request(

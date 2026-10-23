@@ -19,7 +19,7 @@ import VehicleList from '../VehicleList'
 import { useAuth } from '../../context/AuthContext'
 
 import {
-  getVehicles,
+  searchVehicles,
   purchaseVehicle,
 } from '../../services/vehicleApi'
 
@@ -33,7 +33,7 @@ vi.mock('../../context/AuthContext', () => ({
 }))
 
 vi.mock('../../services/vehicleApi', () => ({
-  getVehicles: vi.fn(),
+  searchVehicles: vi.fn(),
   purchaseVehicle: vi.fn(),
 }))
 
@@ -92,9 +92,21 @@ describe('VehicleList', () => {
   beforeEach(() => {
     vi.clearAllMocks()
 
-    getVehicles.mockResolvedValue(
-      mockVehicles,
-    )
+    searchVehicles.mockImplementation(async (params = {}) => {
+      const query = params.q?.toLowerCase() || ''
+      return mockVehicles.filter((vehicle) => {
+        const text = `${vehicle.make} ${vehicle.model}`.toLowerCase()
+        const matchesQuery = text.includes(query)
+        const matchesCategory = !params.category ||
+          vehicle.category.toLowerCase() === params.category.toLowerCase()
+        const matchesMin = params.min_price === '' ||
+          vehicle.price >= Number(params.min_price)
+        const matchesMax = params.max_price === '' ||
+          vehicle.price <= Number(params.max_price)
+
+        return matchesQuery && matchesCategory && matchesMin && matchesMax
+      })
+    })
 
     purchaseVehicle.mockResolvedValue({
       message:
@@ -154,6 +166,15 @@ describe('VehicleList', () => {
 
       await screen.findByText('Camry')
 
+      expect(searchVehicles).toHaveBeenCalledWith({
+        q: '',
+        category: '',
+        min_price: '',
+        max_price: '',
+        page: 1,
+        limit: 100,
+      })
+
       const searchInput =
         screen.getByPlaceholderText(
           'Search by make or model...',
@@ -168,17 +189,20 @@ describe('VehicleList', () => {
         },
       )
 
-      expect(
-        screen.getByText('Model 3'),
-      ).toBeInTheDocument()
+      await waitFor(() => {
+        expect(screen.getByText('Model 3')).toBeInTheDocument()
+        expect(screen.queryByText('Camry')).not.toBeInTheDocument()
+        expect(screen.queryByText('Civic')).not.toBeInTheDocument()
+      })
 
-      expect(
-        screen.queryByText('Camry'),
-      ).not.toBeInTheDocument()
-
-      expect(
-        screen.queryByText('Civic'),
-      ).not.toBeInTheDocument()
+      expect(searchVehicles).toHaveBeenLastCalledWith({
+        q: 'Tesla',
+        category: '',
+        min_price: '',
+        max_price: '',
+        page: 1,
+        limit: 100,
+      })
     },
   )
 
@@ -202,17 +226,11 @@ describe('VehicleList', () => {
         }),
       )
 
-      expect(
-        screen.getByText('Model 3'),
-      ).toBeInTheDocument()
-
-      expect(
-        screen.queryByText('Camry'),
-      ).not.toBeInTheDocument()
-
-      expect(
-        screen.queryByText('Civic'),
-      ).not.toBeInTheDocument()
+      await waitFor(() => {
+        expect(screen.getByText('Model 3')).toBeInTheDocument()
+        expect(screen.queryByText('Camry')).not.toBeInTheDocument()
+        expect(screen.queryByText('Civic')).not.toBeInTheDocument()
+      })
     },
   )
 
@@ -409,7 +427,7 @@ describe('VehicleList', () => {
     'shows an error when loading vehicles fails',
     async () => {
 
-      getVehicles.mockRejectedValue(
+      searchVehicles.mockRejectedValue(
         new Error(
           'Failed to load vehicles',
         ),
@@ -531,7 +549,7 @@ describe('VehicleList', () => {
     'shows empty inventory when API returns no vehicles',
     async () => {
 
-      getVehicles.mockResolvedValue([])
+      searchVehicles.mockResolvedValue([])
 
       renderVehicleList()
 

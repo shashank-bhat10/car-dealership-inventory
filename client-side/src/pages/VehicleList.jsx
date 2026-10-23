@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import {
-  getVehicles,
+  searchVehicles,
   purchaseVehicle,
 } from '../services/vehicleApi'
 
@@ -40,26 +40,43 @@ function VehicleList() {
         setLoading(true)
         setError('')
 
-        const data = await getVehicles()
+        const data = await searchVehicles({
+          q: search,
+          category: category === 'All' ? '' : category,
+          min_price: minPrice,
+          max_price: maxPrice,
+          page: 1,
+          limit: 100,
+        })
 
-        setVehicles(data)
+        if (active) {
+          setVehicles(data)
+        }
       } catch (error) {
         console.error(
           'Load vehicles error:',
           error
         )
 
-        setError(
-          error.message ||
-          'Unable to load vehicles.'
-        )
+        if (active) {
+          setError(
+            error.message ||
+            'Unable to load vehicles.'
+          )
+        }
       } finally {
-        setLoading(false)
+        if (active) {
+          setLoading(false)
+        }
       }
     }
 
+    let active = true
     loadVehicles()
-  }, [])
+    return () => {
+      active = false
+    }
+  }, [search, category, minPrice, maxPrice])
 
 
   /* =========================================================
@@ -92,79 +109,18 @@ function VehicleList() {
         ? null
         : Number(maxPrice)
 
-    return vehicles.filter((vehicle) => {
+    const priceRangeIsValid =
+      (minimum === null || Number.isFinite(minimum)) &&
+      (maximum === null || Number.isFinite(maximum))
 
-      /* -----------------------------------------------
-         SEARCH BY MAKE OR MODEL
-      ------------------------------------------------ */
+    if (!priceRangeIsValid) {
+      return []
+    }
 
-      const searchText =
-        `${vehicle.make} ${vehicle.model}`
-          .toLowerCase()
-
-      const matchesSearch =
-        searchText.includes(
-          search.trim().toLowerCase()
-        )
-
-
-      /* -----------------------------------------------
-         CATEGORY
-      ------------------------------------------------ */
-
-      const matchesCategory =
-        category === 'All' ||
-        vehicle.category?.toLowerCase() ===
-          category.toLowerCase()
-
-
-      /* -----------------------------------------------
-         PRICE
-      ------------------------------------------------ */
-
-      const vehiclePrice =
-        Number(vehicle.price) || 0
-
-      const matchesMinPrice =
-        minimum === null ||
-        (
-          Number.isFinite(minimum) &&
-          vehiclePrice >= minimum
-        )
-
-      const matchesMaxPrice =
-        maximum === null ||
-        (
-          Number.isFinite(maximum) &&
-          vehiclePrice <= maximum
-        )
-
-
-      /* -----------------------------------------------
-         STOCK
-      ------------------------------------------------ */
-
-      const matchesStock =
-        !stockOnly ||
-        Number(vehicle.quantity) > 0
-
-
-      return (
-        matchesSearch &&
-        matchesCategory &&
-        matchesMinPrice &&
-        matchesMaxPrice &&
-        matchesStock
-      )
-    })
-  }, [
-    vehicles,
-    search,
-    category,
-    minPrice,
-    maxPrice,
-    stockOnly,
-  ])
+    return stockOnly
+      ? vehicles.filter((vehicle) => Number(vehicle.quantity) > 0)
+      : vehicles
+  }, [vehicles, stockOnly, minPrice, maxPrice])
 
 
   /* =========================================================

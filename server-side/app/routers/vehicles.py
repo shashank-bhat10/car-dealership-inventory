@@ -1,10 +1,12 @@
 from decimal import Decimal
-from app.core.dependencies import get_current_admin
+
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+from app.core.dependencies import get_current_admin, get_current_user
 from app.database import get_db
+from app.models.user import User
 from app.models.vehicle import Vehicle
 from app.schemas.vehicle import (
     InventoryQuantity,
@@ -59,6 +61,7 @@ def list_vehicles(
     page: int = 1,
     limit: int = 10,
     db: Session = Depends(get_db),
+    _current_user: User = Depends(get_current_user),
 ):
     query = select(Vehicle)
 
@@ -84,7 +87,57 @@ def list_vehicles(
     vehicles = db.scalars(query).all()
 
     return vehicles
-  
+
+
+@router.get(
+    "/search",
+    response_model=list[VehicleResponse],
+)
+def search_vehicles(
+    q: str | None = None,
+    make: str | None = None,
+    model: str | None = None,
+    category: str | None = None,
+    min_price: Decimal | None = Query(default=None, ge=0),
+    max_price: Decimal | None = Query(default=None, ge=0),
+    page: int = Query(default=1, ge=1),
+    limit: int = Query(default=10, ge=1, le=100),
+    db: Session = Depends(get_db),
+    _current_user: User = Depends(get_current_user),
+):
+    """Search the authenticated vehicle catalog by its key fields."""
+    if min_price is not None and max_price is not None and min_price > max_price:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
+            detail="min_price must be less than or equal to max_price",
+        )
+
+    query = select(Vehicle)
+
+    if q and q.strip():
+        term = f"%{q.strip()}%"
+        query = query.where(
+            Vehicle.make.ilike(term) | Vehicle.model.ilike(term)
+        )
+
+    if make and make.strip():
+        query = query.where(Vehicle.make.ilike(f"%{make.strip()}%"))
+
+    if model and model.strip():
+        query = query.where(Vehicle.model.ilike(f"%{model.strip()}%"))
+
+    if category and category.strip():
+        query = query.where(Vehicle.category.ilike(f"%{category.strip()}%"))
+
+    if min_price is not None:
+        query = query.where(Vehicle.price >= min_price)
+
+    if max_price is not None:
+        query = query.where(Vehicle.price <= max_price)
+
+    offset = (page - 1) * limit
+    return db.scalars(query.offset(offset).limit(limit)).all()
+
 
 @router.get(
     "/{vehicle_id}",
@@ -93,6 +146,7 @@ def list_vehicles(
 def get_vehicle(
     vehicle_id: int,
     db: Session = Depends(get_db),
+    _current_user: User = Depends(get_current_user),
 ):
     vehicle = db.get(Vehicle, vehicle_id)
 
@@ -113,6 +167,7 @@ def purchase_vehicle(
     vehicle_id: int,
     purchase_data: InventoryQuantity,
     db: Session = Depends(get_db),
+    _current_user: User = Depends(get_current_user),
 ):
     vehicle = db.get(Vehicle, vehicle_id)
 

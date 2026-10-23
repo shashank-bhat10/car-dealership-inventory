@@ -226,15 +226,18 @@ describe('vehicleApi', () => {
     request.mockResolvedValue(response)
 
     const result = await searchVehicles({
+      q: 'Toyota',
       make: 'Toyota',
       model: 'Camry',
       category: 'Sedan',
       min_price: 20000,
       max_price: 30000,
+      page: 2,
+      limit: 25,
     })
 
     expect(request).toHaveBeenCalledWith(
-      '/api/vehicles/search?make=Toyota&model=Camry&category=Sedan&min_price=20000&max_price=30000',
+      '/api/vehicles/search?q=Toyota&make=Toyota&model=Camry&category=Sedan&min_price=20000&max_price=30000&page=2&limit=25',
     )
 
     expect(result).toEqual(response)
@@ -259,6 +262,20 @@ describe('vehicleApi', () => {
 
     expect(request).toHaveBeenCalledWith(
       '/api/vehicles/search?',
+    )
+  })
+
+  it('omits empty price fields from the search URL', async () => {
+    request.mockResolvedValue([])
+
+    await searchVehicles({
+      q: 'Camry',
+      min_price: '',
+      max_price: '',
+    })
+
+    expect(request).toHaveBeenCalledWith(
+      '/api/vehicles/search?q=Camry',
     )
   })
 
