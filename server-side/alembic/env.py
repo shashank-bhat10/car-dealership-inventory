@@ -50,7 +50,9 @@ def run_migrations_offline() -> None:
     script output.
 
     """
-    url = config.get_main_option("sqlalchemy.url")
+    url = os.getenv("DATABASE_URL")
+    if not url:
+        raise ValueError("DATABASE_URL is not set")
     context.configure(
         url=url,
         target_metadata=target_metadata,
@@ -70,12 +72,12 @@ def run_migrations_online() -> None:
 
     """
 
-    database_url = os.getenv("NEW_DATABASE_URL")
+    database_url = os.getenv("DATABASE_URL")
 
     if not database_url:
-        raise ValueError("NEW_DATABASE_URL is not set")
+        raise ValueError("DATABASE_URL is not set")
 
-    config.set_main_option("sqlalchemy.url", database_url)
+    config.set_main_option("sqlalchemy.url", database_url.replace("%", "%%"))
 
     connectable = engine_from_config(
         config.get_section(config.config_ini_section, {}),
