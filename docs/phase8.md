@@ -1,3 +1,5 @@
+> Historical development notes: old test counts below are not current verification. Use TEST_REPORT.md for observed results. Coverage percentages and universal test-first claims have been removed where unsupported.
+
 # 🧪 Phase 8 — Testing & Quality Assurance
 
 **Status: ✅ COMPLETED**
@@ -356,33 +358,9 @@ This prevents test data from interfering with normal development data.
 
 ---
 
-# 11. Coverage
+# 11. Coverage evidence
 
-The final Phase 8 result was:
-
-```text
-88 passed
-98% coverage
-```
-
-## Final Coverage
-
-| Component | Coverage |
-|---|---:|
-| `main.py` | **100%** |
-| `models/user.py` | **100%** |
-| `models/vehicle.py` | **100%** |
-| `schemas/auth.py` | **100%** |
-| `schemas/user.py` | **100%** |
-| `schemas/vehicle.py` | **100%** |
-| `routers/users.py` | **100%** |
-| `routers/vehicles.py` | **99%** |
-| `routers/auth.py` | **97%** |
-| `core/dependencies.py` | **94%** |
-| `core/security.py` | **90%** |
-| **TOTAL** | **98%** |
-
-This provides an excellent testing baseline for the project.
+The earlier coverage percentages in this document had no retained measurement report and have been removed. Coverage was not measured in the current review. See [TEST_REPORT.md](../TEST_REPORT.md) for executed commands and observed results.
 
 ---
 
@@ -431,7 +409,7 @@ tests/
 
 # 13. TDD Workflow
 
-Throughout the project, we followed the TDD workflow:
+The intended TDD workflow is shown below. This historical note does not establish that every original feature followed it; newly observed red/green results are recorded in TEST_REPORT.md:
 
 ```text
 Write Test
@@ -475,7 +453,7 @@ The final result:
 
 ```text
 88 tests passed
-98% coverage
+Coverage not verified
 ```
 
 ---
@@ -497,10 +475,10 @@ The final result:
 │ Database Tests                ✅         │
 │ Edge Case Tests               ✅         │
 │ Test Fixtures                 ✅         │
-│ Coverage Analysis             ✅         │
+│ Coverage Analysis             ☐         │
 ├─────────────────────────────────────────┤
 │ 88 TESTS PASSED                         │
-│ 98% CODE COVERAGE                       │
+│ COVERAGE NOT VERIFIED                       │
 └─────────────────────────────────────────┘
 ```
 
@@ -536,7 +514,7 @@ The final result:
 
 ☑ Full regression suite executed
 ☑ 88 tests passing
-☑ 98% coverage achieved
+☐ Coverage measurement outstanding
 ```
 
 ---

@@ -89,6 +89,15 @@ const renderVehicleList = () => {
 
 describe('VehicleList', () => {
 
+  it('requests available inventory from page one when the stock filter changes', async () => {
+    searchVehicles.mockResolvedValueOnce(Array.from({ length: 100 }, (_, index) => ({ ...mockVehicles[0], id: index + 1 })))
+    renderVehicleList()
+    fireEvent.click(await screen.findByRole('button', { name: /next page/i }))
+    await waitFor(() => expect(searchVehicles).toHaveBeenLastCalledWith(expect.objectContaining({ page: 2 })))
+    fireEvent.click(screen.getByRole('button', { name: /in stock only/i }))
+    await waitFor(() => expect(searchVehicles).toHaveBeenLastCalledWith(expect.objectContaining({ page: 1, in_stock: true })))
+  })
+
   it('can request vehicles beyond the first hundred', async () => {
     searchVehicles.mockResolvedValueOnce(Array.from({ length: 100 }, (_, index) => ({ ...mockVehicles[0], id: index + 1 })))
     renderVehicleList()
@@ -189,6 +198,7 @@ describe('VehicleList', () => {
         max_price: '',
         page: 1,
         limit: 100,
+        in_stock: false,
       })
 
       const searchInput =
@@ -218,6 +228,7 @@ describe('VehicleList', () => {
         max_price: '',
         page: 1,
         limit: 100,
+        in_stock: false,
       })
     },
   )

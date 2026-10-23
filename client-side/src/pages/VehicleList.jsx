@@ -48,6 +48,7 @@ function VehicleList() {
           max_price: maxPrice,
           page,
           limit: 100,
+          in_stock: stockOnly,
         })
 
         if (active) {
@@ -77,7 +78,7 @@ function VehicleList() {
     return () => {
       active = false
     }
-  }, [search, category, minPrice, maxPrice, page])
+  }, [search, category, minPrice, maxPrice, page, stockOnly])
 
 
   /* =========================================================
@@ -358,9 +359,10 @@ function VehicleList() {
                   ? 'active'
                   : ''
               }`}
-              onClick={() =>
+              onClick={() => {
                 setStockOnly(!stockOnly)
-              }
+                setPage(1)
+              }}
             >
               ✓ In Stock Only
             </button>

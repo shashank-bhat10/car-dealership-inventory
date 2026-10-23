@@ -1,9 +1,27 @@
+import pytest
 from fastapi.testclient import TestClient
 
 from app.main import app
 
 
 client = TestClient(app)
+
+
+@pytest.mark.parametrize('endpoint', ['/api/vehicles', '/api/vehicles/search'])
+def test_stock_filter_applies_before_pagination(endpoint, admin_headers, user_headers):
+    sold_out = create_vehicle(admin_headers, make='Toyota', model='Empty',
+                              category='Sedan', price=20000, quantity=0)
+    available = create_vehicle(admin_headers, make='Toyota', model='Available',
+                               category='Sedan', price=21000, quantity=1)
+    response = client.get(endpoint, headers=user_headers,
+                          params={'in_stock': 'true', 'limit': 1})
+    assert response.status_code == 200
+    assert [vehicle['id'] for vehicle in response.json()] == [available['id']]
+    unfiltered = client.get(endpoint, headers=user_headers,
+                            params={'in_stock': 'false', 'limit': 1})
+    assert [vehicle['id'] for vehicle in unfiltered.json()] == [sold_out['id']]
+    assert client.get(endpoint, headers=user_headers,
+                      params={'in_stock': 'true', 'limit': 1, 'page': 2}).json() == []
 
 
 def create_vehicle(headers, *, make, model, category, price, quantity):

@@ -88,6 +88,10 @@ export const searchVehicles = async (params) => {
     query.set('max_price', params.max_price)
   }
 
+  if (params.in_stock) {
+    query.set('in_stock', 'true')
+  }
+
   if (params.page) {
     query.set('page', params.page)
   }

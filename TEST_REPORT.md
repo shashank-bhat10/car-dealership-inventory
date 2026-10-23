@@ -1,3 +1,29 @@
+# Resumed assessment improvements — 24 October 2026
+
+The existing application was retained. This pass adds server-side stock filtering before pagination and resets the frontend page when the stock filter changes. The supplied Word assessment was reread; its missing personal AI reflection and raw-log requirements remain explicitly outstanding.
+
+## Executed checks for this pass
+
+Use the environment variables and commands documented below. Run backend pytest processes sequentially against a given TEST_DATABASE_URL: fixtures recreate tables.
+
+| Check | Actual result |
+|---|---|
+| Baseline frontend `npm run test:run` | 72 passed, 7 files |
+| Baseline backend `python -m pytest -q --tb=short -k 'not stock_filter_applies_before_pagination'` | 119 passed, 2 new tests deselected, 1 warning, 51.39 seconds |
+| New backend tests before implementation: `python -m pytest -q --tb=line tests/vehicles/test_vehicle_search.py` | 2 failed, 3 passed: sold-out row was returned instead of available row |
+| New frontend tests before implementation (stock request serialization and filter/page reset) | Both failed as expected; 14 existing component cases passed |
+| Final backend `python -m pytest -q --tb=short` | **121 passed, 1 warning**, 54.48 seconds, exit 0 |
+| Final frontend `npm run test:run` | **74 passed across 8 files**, 3.24 seconds, exit 0 |
+| `npm run lint` | Passed, exit 0 |
+| `npm run build` | Passed, 1,824 modules; JS 279.63 kB / 84.28 kB gzip; CSS 53.69 kB / 9.98 kB gzip |
+| `git diff --check` | Passed |
+
+The first baseline backend run overlapped accidentally with a focused run using the same test database. The baseline produced 115 passes, 2 failures and 2 setup errors; the focused run produced 1 pass, 1 failure and 3 setup errors. These conflicted runs are not regression evidence. After both ended, the sequential baseline and targeted red runs above completed. An intermediate JSX handler syntax error also failed frontend tests/lint/build; it was corrected before the successful final checks. Existing service tests were preserved, with the additional serialization case in `stockFilter.test.js`.
+
+The remaining backend warning is the existing Starlette/httpx TestClient deprecation. No new coverage measurement, PostgreSQL full-suite run, deployment or browser screenshot capture is claimed in this pass. Existing genuine screenshots remain applicable to the unchanged visual layout. Unsupported coverage percentages were removed from docs/phase8.md. Test-first execution is recorded here, not retroactively manufactured in old commits.
+
+---
+
 # Test report — 24 October 2026 review
 
 Environment: Windows, Python 3.14.0, Node.js 24.19.0, npm 11.17.0. Original checkout: `39f649b` on `codex/project-review`. This section records commands actually executed in this session. Historical results follow separately.

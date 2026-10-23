@@ -144,7 +144,7 @@ Log out and log in again. Open a vehicle and choose **Edit vehicle**. The form s
 | POST | `/api/vehicles/{vehicle_id}/purchase` | Authenticated |
 | POST | `/api/vehicles/{vehicle_id}/restock` | Admin |
 
-Search accepts `q`, `make`, `model`, `category`, `min_price`, `max_price`, `page` and `limit`. Purchase and restock requests use a JSON body such as `{"quantity": 1}`. Every vehicle has an ID, make, model, category, price and quantity.
+Search accepts `q`, `make`, `model`, `category`, `min_price`, `max_price`, `in_stock`, `page` and `limit`. Purchase and restock requests use a JSON body such as `{"quantity": 1}`. Every vehicle has an ID, make, model, category, price and quantity.
 
 ## Run the tests
 
@@ -193,7 +193,7 @@ Create/update vehicle JSON uses `make`, `model`, `category`, `price`, `quantity`
 
 Responses: 201 for registration/creation, 200 for successful reads/login/updates/inventory operations, 204 for deletion, 400 for insufficient stock, 401 for missing/invalid authentication or failed login, 403 for insufficient role, 404 for missing vehicles, 409 for duplicate registration, and 422 for invalid input. `/db-test` returns 200 when storage is reachable or a generic 503 without exposing connection errors. See `/docs` for exact request/response schemas and the additional admin user-management routes.
 
-Both listing and search support page numbers starting at 1, limits 1–100 and nonnegative ordered price ranges. Listing uses exact field matches; search uses case-insensitive partial matches. Catalog navigation fetches 100 vehicles per page. Its in-stock toggle filters the current page. Prices are displayed in INR. A purchase changes inventory only; no payment is taken.
+Both listing and search support page numbers starting at 1, limits 1–100 and nonnegative ordered price ranges. Listing uses exact field matches; search uses case-insensitive partial matches. Catalog navigation fetches 100 vehicles per page. Its in-stock toggle filters in the database before pagination, so available vehicles are not missed on later pages. Both API routes accept `in_stock=true`. Prices are displayed in INR. A purchase changes inventory only; no payment is taken.
 
 Optional frontend configuration: copy `client-side/.env.example` to `.env` and set `VITE_API_BASE_URL`. It is public configuration, never a place for secrets. Restart Vite after changes. For deployment, configure the allowed frontend origin in `server-side/app/main.py`; the current CORS settings are for local development.
 
@@ -217,7 +217,7 @@ Captured from the running application on 24 October 2026 with a separate, persis
 
 ## Verification and project audit
 
-The 24 October review ran **119 backend tests** and **72 frontend tests** successfully, plus ESLint and the Vite production build. `npm audit fix` applied compatible updates and reported **0 vulnerabilities**. No coverage percentage is claimed. See [TEST_REPORT.md](TEST_REPORT.md) for commands, baseline failures, warnings and browser evidence, and [the repository audit](docs/REPOSITORY_AUDIT.md) for requirements, names/credits, Git-history findings and interview guidance.
+The 24 October review ran **121 backend tests** and **74 frontend tests** successfully, plus ESLint and the Vite production build. `npm audit fix` applied compatible updates and reported **0 vulnerabilities**. No coverage percentage is claimed. See [TEST_REPORT.md](TEST_REPORT.md) for commands, baseline failures, warnings and browser evidence, and [the repository audit](docs/REPOSITORY_AUDIT.md) for requirements, names/credits, Git-history findings and interview guidance.
 
 ## My AI Usage
 
@@ -228,3 +228,7 @@ Earlier repository documentation records **ChatGPT** assistance and claims plann
 **Personal wording required from Shashank Bhat:** explain which suggestions you personally reviewed, which tests you personally ran, what you changed, and what you learned. The automated tests and reviews in this session were performed by the assistant. They must not be represented as your own manual review. No personal reflection is invented here.
 
 AI-assisted commits from this session use `Co-authored-by: Codex <AI@users.noreply.github.com>`. Git collapsed the first backend commit trailer spacing; AI_USAGE.md discloses the deviation, and subsequent commits preserve two empty lines. Commit history was rewritten to remove the obsolete README attribution; author records and AI disclosures were retained.
+
+## Assessment submission
+
+Use [the assessment checklist and demonstration guide](docs/ASSESSMENT_CHECKLIST.md) to review the supplied kata requirements. [CONTINUATION.md](CONTINUATION.md) saves the current checkpoint and remaining work for a resumed session. Missing raw AI records and personal reflection must be completed before submission; no guarantee of selection is claimed.

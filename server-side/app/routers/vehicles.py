@@ -58,6 +58,7 @@ def list_vehicles(
     category: str | None = None,
     min_price: Decimal | None = Query(default=None, ge=0),
     max_price: Decimal | None = Query(default=None, ge=0),
+    in_stock: bool = False,
     page: int = Query(default=1, ge=1),
     limit: int = Query(default=10, ge=1, le=100),
     db: Session = Depends(get_db),
@@ -82,6 +83,9 @@ def list_vehicles(
     if max_price is not None:
         query = query.where(Vehicle.price <= max_price)
 
+    if in_stock:
+        query = query.where(Vehicle.quantity > 0)
+
     offset = (page - 1) * limit
 
     query = query.offset(offset).limit(limit)
@@ -102,6 +106,7 @@ def search_vehicles(
     category: str | None = None,
     min_price: Decimal | None = Query(default=None, ge=0),
     max_price: Decimal | None = Query(default=None, ge=0),
+    in_stock: bool = False,
     page: int = Query(default=1, ge=1),
     limit: int = Query(default=10, ge=1, le=100),
     db: Session = Depends(get_db),
@@ -136,6 +141,9 @@ def search_vehicles(
 
     if max_price is not None:
         query = query.where(Vehicle.price <= max_price)
+
+    if in_stock:
+        query = query.where(Vehicle.quantity > 0)
 
     offset = (page - 1) * limit
     return db.scalars(query.offset(offset).limit(limit)).all()
