@@ -10,6 +10,7 @@ import {
 } from '../services/vehicleApi'
 
 import { useAuth } from '../context/AuthContext'
+import EditVehicleForm from '../components/EditVehicleForm'
 
 
 function VehicleDetails() {
@@ -25,8 +26,7 @@ function VehicleDetails() {
   const [vehicle, setVehicle] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
-  const [editDraft, setEditDraft] = useState(null)
-  const [saving, setSaving] = useState(false)
+  const [editing, setEditing] = useState(false)
   const [success, setSuccess] = useState('')
 
   const [purchaseLoading, setPurchaseLoading] =
@@ -82,45 +82,15 @@ function VehicleDetails() {
     if (!isAdmin) return
     setError('')
     setSuccess('')
-    setEditDraft({
-      make: vehicle.make, model: vehicle.model, category: vehicle.category,
-      price: String(vehicle.price), quantity: String(vehicle.quantity),
-    })
+    setEditing(true)
   }
 
-  const handleUpdate = async (event) => {
-    event.preventDefault()
-    if (!isAdmin || saving || !editDraft) return
-    setError('')
-    const payload = {
-      make: editDraft.make.trim(), model: editDraft.model.trim(),
-      category: editDraft.category.trim(), price: Number(editDraft.price),
-      quantity: Number(editDraft.quantity),
-    }
-    if (!payload.make || !payload.model || !payload.category ||
-        [payload.make, payload.model, payload.category].some(value => value.length > 50)) {
-      setError('Make, model and category must contain 1 to 50 characters.')
-      return
-    }
-    if (editDraft.price === '' || !Number.isFinite(payload.price) || payload.price <= 0) {
-      setError('Price must be greater than 0.')
-      return
-    }
-    if (editDraft.quantity === '' || !Number.isInteger(payload.quantity) || payload.quantity < 0) {
-      setError('Quantity must be a whole number greater than or equal to 0.')
-      return
-    }
-    setSaving(true)
-    try {
-      const updated = await updateVehicle(Number(vehicleId), payload)
-      setVehicle(updated)
-      setEditDraft(null)
-      setSuccess('Vehicle updated.')
-    } catch (error) {
-      setError(error.message || 'Unable to update vehicle.')
-    } finally {
-      setSaving(false)
-    }
+  const handleUpdate = async (payload) => {
+    if (!isAdmin) throw new Error('Admin access required')
+    const updated = await updateVehicle(Number(vehicleId), payload)
+    setVehicle(updated)
+    setEditing(false)
+    setSuccess('Vehicle updated.')
   }
 
   /* =========================================================
@@ -514,7 +484,7 @@ function VehicleDetails() {
                 type="button"
                 className="purchase-btn"
                 disabled={
-                  !inStock || editDraft !== null ||
+                  !inStock || editing ||
                   purchaseLoading
                 }
                 onClick={handlePurchase}
@@ -531,7 +501,7 @@ function VehicleDetails() {
               </button>
 
 
-              {isAdmin && !editDraft && (
+              {isAdmin && !editing && (
                 <button type="button" className="view-btn" onClick={startEditing}
                   disabled={purchaseLoading || restockLoading || deleteLoading}>Edit vehicle</button>
               )}
@@ -541,7 +511,7 @@ function VehicleDetails() {
               <button
                 type="button"
                 className="view-btn"
-                disabled={restockLoading || editDraft !== null}
+                disabled={restockLoading || editing}
                 onClick={handleRestock}
                 style={{
                   flex: '1',
@@ -565,7 +535,7 @@ function VehicleDetails() {
               <button
                 type="button"
                 className="view-btn"
-                disabled={deleteLoading || editDraft !== null}
+                disabled={deleteLoading || editing}
                 onClick={handleDelete}
                 style={{
                   flex: '1',
@@ -589,32 +559,9 @@ function VehicleDetails() {
             </div>
 
 
-            {isAdmin && editDraft && (
-              <form aria-label="Edit vehicle" onSubmit={handleUpdate} className="mt-6 rounded-xl border border-slate-700 p-5">
-                <h3 className="mb-4 text-xl font-bold text-white">Edit vehicle</h3>
-                <fieldset disabled={saving} className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  {['make', 'model', 'category', 'price', 'quantity'].map(field => (
-                    <div key={field}>
-                      <label htmlFor={`edit-${field}`} className="mb-2 block text-sm text-slate-300">
-                        {field[0].toUpperCase() + field.slice(1)}
-                      </label>
-                      <input id={`edit-${field}`} name={field} required
-                        type={['price', 'quantity'].includes(field) ? 'number' : 'text'}
-                        min={field === 'price' ? '0.01' : field === 'quantity' ? '0' : undefined}
-                        step={field === 'price' ? '0.01' : field === 'quantity' ? '1' : undefined}
-                        maxLength={['make', 'model', 'category'].includes(field) ? 50 : undefined}
-                        value={editDraft[field]}
-                        onChange={event => setEditDraft({ ...editDraft, [field]: event.target.value })}
-                        className="w-full rounded-lg border border-slate-600 bg-slate-950 px-3 py-2 text-white focus:outline-2 focus:outline-indigo-400" />
-                    </div>
-                  ))}
-                  <div className="flex flex-wrap gap-3 sm:col-span-2">
-                    <button type="submit" disabled={saving} className="purchase-btn px-4 py-2">{saving ? 'Saving...' : 'Save changes'}</button>
-                    <button type="button" disabled={saving} className="view-btn px-4 py-2"
-                      onClick={() => { setEditDraft(null); setError('') }}>Cancel editing</button>
-                  </div>
-                </fieldset>
-              </form>
+            {isAdmin && editing && (
+              <EditVehicleForm vehicle={vehicle} onSave={handleUpdate}
+                onCancel={() => setEditing(false)} />
             )}
 
             {/* ADMIN INFORMATION */}
