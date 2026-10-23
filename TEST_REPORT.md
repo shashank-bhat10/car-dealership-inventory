@@ -48,7 +48,7 @@ From `client-side/`:
 | `npm run lint` | Passed, no reported errors/warnings |
 | `npm run build` | Passed: 1,824 modules; JS 279.57 kB (84.25 kB gzip), CSS 53.69 kB (9.98 kB gzip) |
 
-No separate TypeScript or backend static-type/lint configuration exists; none is claimed. Coverage was not measured. No PostgreSQL server was exercised locally in this session. CI retains its PostgreSQL migration smoke test and now includes feature-branch pushes and frontend lint; local results do not assert that the newly pushed CI run has finished.
+No separate TypeScript or backend static-type/lint configuration exists; none is claimed. Coverage was not measured. No PostgreSQL server was exercised locally in this session. The GitHub Actions run for the completed code commit [0b80a8a](https://github.com/shashank-bhat10/car-dealership-inventory/actions/runs/40031974177) succeeded, including its PostgreSQL migration smoke test and frontend lint. That run verifies the code commit before the documentation-only edits in this report update.
 
 ## Genuine browser checks
 
