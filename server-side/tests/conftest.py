@@ -140,3 +140,9 @@ def user_headers(client):
     return {
         "Authorization": f"Bearer {token}"
     }
+
+
+@pytest.fixture
+def admin_token(admin_headers):
+    """Return the token value for tests that build headers themselves."""
+    return admin_headers["Authorization"].removeprefix("Bearer ")

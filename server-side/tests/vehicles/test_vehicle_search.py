@@ -1,166 +1,102 @@
 from fastapi.testclient import TestClient
-from sqlalchemy import delete
 
-from app.database import SessionLocal
 from app.main import app
-from app.models.vehicle import Vehicle
+
 
 client = TestClient(app)
 
 
-def cleanup_vehicles():
-    db = SessionLocal()
-
-    try:
-        db.execute(delete(Vehicle))
-        db.commit()
-    finally:
-        db.close()
-
-
-def test_filter_vehicles_by_make(admin_headers):
-    cleanup_vehicles()
-
-    client.post(
+def create_vehicle(headers, *, make, model, category, price, quantity):
+    response = client.post(
         "/api/vehicles",
-        headers=admin_headers,
+        headers=headers,
         json={
-            "make": "Toyota",
-            "model": "Camry",
-            "category": "Sedan",
-            "price": 25000,
-            "quantity": 5,
+            "make": make,
+            "model": model,
+            "category": category,
+            "price": price,
+            "quantity": quantity,
         },
     )
+    assert response.status_code == 201
+    return response.json()
 
-    client.post(
-        "/api/vehicles",
-        headers=admin_headers,
-        json={
-            "make": "Honda",
-            "model": "Civic",
-            "category": "Sedan",
-            "price": 22000,
-            "quantity": 3,
-        },
+
+def test_search_vehicles_by_make_model_category_and_price_range(
+    admin_headers, user_headers
+):
+    create_vehicle(
+        admin_headers,
+        make="Toyota",
+        model="Camry",
+        category="Sedan",
+        price=25000,
+        quantity=5,
+    )
+    create_vehicle(
+        admin_headers,
+        make="Toyota",
+        model="RAV4",
+        category="SUV",
+        price=32000,
+        quantity=2,
+    )
+    create_vehicle(
+        admin_headers,
+        make="Honda",
+        model="Civic",
+        category="Sedan",
+        price=22000,
+        quantity=3,
     )
 
-    response = client.get("/api/vehicles?make=Toyota")
+    response = client.get(
+        "/api/vehicles/search",
+        params={
+            "make": "toyota",
+            "model": "cam",
+            "category": "sedan",
+            "min_price": 20000,
+            "max_price": 30000,
+        },
+        headers=user_headers,
+    )
 
     assert response.status_code == 200
+    results = response.json()
+    assert len(results) == 1
+    assert results[0]["make"] == "Toyota"
+    assert results[0]["model"] == "Camry"
 
-    data = response.json()
 
-    assert len(data) == 1
-    assert data[0]["make"] == "Toyota"
-
-
-def test_filter_vehicles_by_model(admin_headers):
-    cleanup_vehicles()
-
-    client.post(
-        "/api/vehicles",
-        headers=admin_headers,
-        json={
-            "make": "Toyota",
-            "model": "Camry",
-            "category": "Sedan",
-            "price": 25000,
-            "quantity": 5,
-        },
+def test_search_vehicles_by_free_text_matches_make_or_model(
+    admin_headers, user_headers
+):
+    create_vehicle(
+        admin_headers,
+        make="Toyota",
+        model="Camry",
+        category="Sedan",
+        price=25000,
+        quantity=5,
     )
 
-    client.post(
-        "/api/vehicles",
-        headers=admin_headers,
-        json={
-            "make": "Toyota",
-            "model": "Corolla",
-            "category": "Sedan",
-            "price": 22000,
-            "quantity": 3,
-        },
+    response = client.get(
+        "/api/vehicles/search?q=toy",
+        headers=user_headers,
     )
-
-    response = client.get("/api/vehicles?model=Camry")
 
     assert response.status_code == 200
-
-    data = response.json()
-
-    assert len(data) == 1
-    assert data[0]["model"] == "Camry"
+    assert [vehicle["model"] for vehicle in response.json()] == ["Camry"]
 
 
-def test_filter_vehicles_by_category(admin_headers):
-    cleanup_vehicles()
-
-    client.post(
-        "/api/vehicles",
-        headers=admin_headers,
-        json={
-            "make": "Toyota",
-            "model": "Camry",
-            "category": "Sedan",
-            "price": 25000,
-            "quantity": 5,
-        },
+def test_search_rejects_an_inverted_price_range(user_headers):
+    response = client.get(
+        "/api/vehicles/search?min_price=30000&max_price=20000",
+        headers=user_headers,
     )
 
-    client.post(
-        "/api/vehicles",
-        headers=admin_headers,
-        json={
-            "make": "Toyota",
-            "model": "RAV4",
-            "category": "SUV",
-            "price": 30000,
-            "quantity": 4,
-        },
+    assert response.status_code == 422
+    assert response.json()["detail"] == (
+        "min_price must be less than or equal to max_price"
     )
-
-    response = client.get("/api/vehicles?category=SUV")
-
-    assert response.status_code == 200
-
-    data = response.json()
-
-    assert len(data) == 1
-    assert data[0]["category"] == "SUV"
-
-
-def test_filter_vehicles_by_min_price(admin_headers):
-    cleanup_vehicles()
-
-    client.post(
-        "/api/vehicles",
-        headers=admin_headers,
-        json={
-            "make": "Toyota",
-            "model": "Camry",
-            "category": "Sedan",
-            "price": 25000,
-            "quantity": 5,
-        },
-    )
-
-    client.post(
-        "/api/vehicles",
-        headers=admin_headers,
-        json={
-            "make": "Honda",
-            "model": "Civic",
-            "category": "Sedan",
-            "price": 15000,
-            "quantity": 3,
-        },
-    )
-
-    response = client.get("/api/vehicles?min_price=20000")
-
-    assert response.status_code == 200
-
-    data = response.json()
-
-    assert len(data) == 1
-    assert float(data[0]["price"]) == 25000

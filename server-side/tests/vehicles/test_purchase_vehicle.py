@@ -104,7 +104,8 @@ def test_purchase_more_than_available_quantity(admin_headers, user_headers):
     assert response.json()["detail"] == "Insufficient vehicle quantity"
 
     get_response = client.get(
-        f"/api/vehicles/{vehicle_id}"
+        f"/api/vehicles/{vehicle_id}",
+        headers=user_headers,
     )
 
     assert get_response.status_code == 200
@@ -139,7 +140,8 @@ def test_purchase_zero_quantity(admin_headers, user_headers):
     assert response.status_code == 422
 
     get_response = client.get(
-        f"/api/vehicles/{vehicle_id}"
+        f"/api/vehicles/{vehicle_id}",
+        headers=user_headers,
     )
 
     assert get_response.status_code == 200
@@ -174,7 +176,8 @@ def test_purchase_negative_quantity(admin_headers, user_headers):
     assert response.status_code == 422
 
     get_response = client.get(
-        f"/api/vehicles/{vehicle_id}"
+        f"/api/vehicles/{vehicle_id}",
+        headers=user_headers,
     )
 
     assert get_response.status_code == 200

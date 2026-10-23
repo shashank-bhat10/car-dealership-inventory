@@ -22,7 +22,10 @@ def test_get_vehicle(admin_headers):
     created_vehicle = create_response.json()
     vehicle_id = created_vehicle["id"]
 
-    response = client.get(f"/api/vehicles/{vehicle_id}")
+    response = client.get(
+        f"/api/vehicles/{vehicle_id}",
+        headers=admin_headers,
+    )
 
     assert response.status_code == 200
 
@@ -35,8 +38,11 @@ def test_get_vehicle(admin_headers):
     assert float(data["price"]) == 22000
     assert data["quantity"] == 3
 
-def test_get_vehicle_not_found():
-    response = client.get("/api/vehicles/999999")
+def test_get_vehicle_not_found(user_headers):
+    response = client.get(
+        "/api/vehicles/999999",
+        headers=user_headers,
+    )
 
     assert response.status_code == 404
     assert response.json()["detail"] == "Vehicle not found"

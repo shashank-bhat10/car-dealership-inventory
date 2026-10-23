@@ -1,25 +1,4 @@
-from fastapi.testclient import TestClient
-from sqlalchemy import delete
-
-from app.database import SessionLocal
-from app.main import app
-from app.models.user import User
-
-
-client = TestClient(app)
-
-
-def cleanup_users():
-    db = SessionLocal()
-
-    try:
-        db.execute(delete(User))
-        db.commit()
-    finally:
-        db.close()
-
-
-def create_test_user():
+def create_test_user(client):
     response = client.post(
         "/api/auth/register",
         json={
@@ -32,9 +11,8 @@ def create_test_user():
     assert response.status_code == 201
 
 
-def test_login_user():
-    cleanup_users()
-    create_test_user()
+def test_login_user(client):
+    create_test_user(client)
 
     response = client.post(
         "/api/auth/login",

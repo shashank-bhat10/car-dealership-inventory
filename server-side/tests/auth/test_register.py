@@ -1,26 +1,4 @@
-from fastapi.testclient import TestClient
-from sqlalchemy import delete
-
-from app.database import SessionLocal
-from app.main import app
-from app.models.user import User
-
-
-client = TestClient(app)
-
-
-def cleanup_users():
-    db = SessionLocal()
-
-    try:
-        db.execute(delete(User))
-        db.commit()
-    finally:
-        db.close()
-
-
-def test_register_user():
-    cleanup_users()
+def test_register_user(client):
 
     response = client.post(
         "/api/auth/register",
@@ -41,9 +19,7 @@ def test_register_user():
     assert "password_hash" not in data
 
 
-def test_register_duplicate_email():
-    cleanup_users()
-
+def test_register_duplicate_email(client):
     client.post(
         "/api/auth/register",
         json={
@@ -65,9 +41,7 @@ def test_register_duplicate_email():
     assert response.status_code == 409
     assert response.json()["detail"] == "Email already registered"
 
-def test_register_duplicate_username():
-    cleanup_users()
-
+def test_register_duplicate_username(client):
     client.post(
         "/api/auth/register",
         json={

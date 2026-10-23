@@ -15,14 +15,14 @@ def test_user_default_role_is_user():
 
 def test_create_user():
     user = User(
-        username="adithi",
-        email="adithi@example.com",
+        username="sampleuser",
+        email="sample@example.com",
         password_hash="hashed_password",
         role=UserRole.USER,
     )
 
-    assert user.username == "adithi"
-    assert user.email == "adithi@example.com"
+    assert user.username == "sampleuser"
+    assert user.email == "sample@example.com"
     assert user.password_hash == "hashed_password"
     assert user.role == UserRole.USER
 

@@ -31,7 +31,8 @@ def test_delete_vehicle(admin_headers):
     assert response.status_code == 204
 
     get_response = client.get(
-        f"/api/vehicles/{vehicle_id}"
+        f"/api/vehicles/{vehicle_id}",
+        headers=admin_headers,
     )
 
     assert get_response.status_code == 404

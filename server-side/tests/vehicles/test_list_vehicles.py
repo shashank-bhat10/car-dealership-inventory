@@ -5,7 +5,13 @@ from app.main import app
 client = TestClient(app)
 
 
-def test_get_vehicle(admin_headers):
+def test_get_vehicles_requires_authentication(client):
+    response = client.get("/api/vehicles")
+
+    assert response.status_code == 401
+
+
+def test_get_vehicle(client, admin_headers):
     create_response = client.post(
         "/api/vehicles",
         headers=admin_headers,
@@ -21,7 +27,7 @@ def test_get_vehicle(admin_headers):
 
     assert create_response.status_code == 201
 
-    response = client.get("/api/vehicles")
+    response = client.get("/api/vehicles", headers=admin_headers)
 
     assert response.status_code == 200
 
@@ -32,8 +38,8 @@ def test_get_vehicle(admin_headers):
 
     vehicle = data[0]
 
-    assert vehicle["make"] == "Toyota"
-    assert vehicle["model"] == "Camry"
+    assert vehicle["make"] == "Honda"
+    assert vehicle["model"] == "Civic"
     assert vehicle["category"] == "Sedan"
-    assert float(vehicle["price"]) == 25000
-    assert vehicle["quantity"] == 5
+    assert float(vehicle["price"]) == 22000
+    assert vehicle["quantity"] == 3

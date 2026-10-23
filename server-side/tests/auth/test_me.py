@@ -1,25 +1,4 @@
-from fastapi.testclient import TestClient
-from sqlalchemy import delete
-
-from app.database import SessionLocal
-from app.main import app
-from app.models.user import User
-
-
-client = TestClient(app)
-
-
-def cleanup_users():
-    db = SessionLocal()
-
-    try:
-        db.execute(delete(User))
-        db.commit()
-    finally:
-        db.close()
-
-
-def create_test_user():
+def create_test_user(client):
     response = client.post(
         "/api/auth/register",
         json={
@@ -32,7 +11,7 @@ def create_test_user():
     assert response.status_code == 201
 
 
-def login_test_user():
+def login_test_user(client):
     response = client.post(
         "/api/auth/login",
         json={
@@ -46,11 +25,10 @@ def login_test_user():
     return response.json()["access_token"]
 
 
-def test_get_current_user():
-    cleanup_users()
-    create_test_user()
+def test_get_current_user(client):
+    create_test_user(client)
 
-    token = login_test_user()
+    token = login_test_user(client)
 
     response = client.get(
         "/api/auth/me",
@@ -70,16 +48,12 @@ def test_get_current_user():
     assert "password" not in data
     assert "password_hash" not in data
 
-def test_get_current_user_without_token():
-    cleanup_users()
-
+def test_get_current_user_without_token(client):
     response = client.get("/api/auth/me")
 
     assert response.status_code == 401
 
-def test_get_current_user_with_invalid_token():
-    cleanup_users()
-
+def test_get_current_user_with_invalid_token(client):
     response = client.get(
         "/api/auth/me",
         headers={
