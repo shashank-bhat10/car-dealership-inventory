@@ -1,5 +1,9 @@
 # 🚗 Car Dealership Inventory Management System
 
+**Author: Shashank Bhat**
+
+
+
 A full-stack web application for managing a car dealership's vehicle inventory. The system allows authenticated dealership users to view, add, update, delete, search, filter, purchase, and restock vehicles through a responsive React-based web interface.
 
 The application is built using **React.js, FastAPI, PostgreSQL, and JWT-based authentication**, with automated testing for backend APIs and frontend functionality.
@@ -173,6 +177,7 @@ The application handles common errors including:
 - JavaScript
 - HTML5
 - CSS3
+- Tailwind CSS
 
 ## Backend
 
@@ -363,14 +368,15 @@ should appear in the terminal.
 
 # 4. Configure Environment Variables
 
-Create a `.env` file inside `server-side`.
+Copy `server-side/.env.example` to `server-side/.env` and set your local values.
 
 Example:
 
     DATABASE_URL=postgresql://username:password@localhost:5432/car_dealership
-    SECRET_KEY=your_secret_key
-    ALGORITHM=HS256
-    ACCESS_TOKEN_EXPIRE_MINUTES=30
+    TEST_DATABASE_URL=postgresql://username:password@localhost:5432/car_dealership_test
+    JWT_SECRET_KEY=replace_with_a_long_random_secret
+    JWT_ALGORITHM=HS256
+    JWT_ACCESS_TOKEN_EXPIRE_MINUTES=30
 
 Replace the values with your local configuration.
 
@@ -380,10 +386,10 @@ An `.env.example` file can be used to document required variables without exposi
 
 Example:
 
-    DATABASE_URL=
-    SECRET_KEY=
-    ALGORITHM=HS256
-    ACCESS_TOKEN_EXPIRE_MINUTES=30
+    TEST_DATABASE_URL=postgresql://username:password@localhost:5432/car_dealership_test
+    JWT_SECRET_KEY=replace_with_a_long_random_secret
+    JWT_ALGORITHM=HS256
+    JWT_ACCESS_TOKEN_EXPIRE_MINUTES=30
 
 ---
 
@@ -391,9 +397,10 @@ Example:
 
 Make sure PostgreSQL is installed and running.
 
-Create the database:
+Create the application database and a separate test database:
 
     CREATE DATABASE car_dealership;
+    CREATE DATABASE car_dealership_test;
 
 The database connection should match the `DATABASE_URL` configured in `.env`.
 
@@ -527,7 +534,15 @@ The authentication system provides endpoints for:
 | POST | `/api/auth/login` | Authenticate a user and obtain JWT |
 | GET | `/api/auth/me` | Get the currently authenticated user |
 
-> Exact API prefixes may vary according to the router configuration in the backend.
+New registrations receive the `USER` role. To enable the admin-only vehicle forms in a local demo, register and log in once, then promote that account in PostgreSQL:
+
+```sql
+UPDATE users
+SET role = 'ADMIN'
+WHERE email = 'admin@example.com';
+```
+
+Sign out and sign back in so the frontend refreshes the account role.
 
 ---
 
@@ -538,6 +553,7 @@ The backend provides REST APIs for vehicle management.
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | GET | `/api/vehicles` | Get all vehicles |
+| GET | `/api/vehicles/search` | Search by make, model, category, or price range |
 | GET | `/api/vehicles/{id}` | Get a specific vehicle |
 | POST | `/api/vehicles` | Add a vehicle |
 | PUT | `/api/vehicles/{id}` | Update a vehicle |
@@ -545,7 +561,7 @@ The backend provides REST APIs for vehicle management.
 | POST | `/api/vehicles/{id}/purchase` | Purchase vehicle quantity |
 | POST | `/api/vehicles/{id}/restock` | Restock vehicle quantity |
 
-All protected vehicle operations require valid authentication.
+All vehicle endpoints require a valid JWT. Creating, updating, deleting, and restocking vehicles require an admin account. A regular authenticated user can view, search, and purchase vehicles.
 
 ---
 
@@ -708,17 +724,13 @@ Frontend tests cover areas including:
 - Navigation and redirects
 - Preservation of vehicle data after failed operations
 
-The current frontend test suite includes:
+Latest verified test results:
 
-- `VehicleList.test.jsx` — 12 tests
-- `VehicleDetails.test.jsx` — 11 tests
-- `AddVehicle.test.jsx` — 13 tests
+- **Backend:** 89 passed
+- **Frontend:** 54 passed across 5 test files
+- **Frontend production build:** passed
 
-Latest frontend test result:
-
-- **Test Files: 3 passed**
-- **Tests: 36 passed**
-- **Status: All frontend page tests passing**
+See [TEST_REPORT.md](TEST_REPORT.md) for the commands and environment used.
 
 ---
 
@@ -927,31 +939,25 @@ Then open:
 
 # 📸 Screenshots
 
-Screenshots can be added to this section to demonstrate the completed application.
+The following screenshots show the current application UI.
 
 ## Login
 
-*Add the final login page screenshot here.*
 
 ## Register
 
-*Add the registration page screenshot here.*
 
 ## Dashboard
 
-*Add the dashboard screenshot here.*
 
 ## Vehicle Catalog
 
-*Add the vehicle inventory screenshot here.*
 
 ## Vehicle Details
 
-*Add the vehicle details screenshot here.*
 
 ## Add Vehicle
 
-*Add the add vehicle form screenshot here.*
 
 ---
 
@@ -1040,13 +1046,10 @@ Sensitive credentials should never be committed to the repository.
 
 Potential future improvements include:
 
-- Role-based access control
-- Admin dashboard
 - Vehicle image uploads
 - Advanced inventory reports
 - Sales history
 - Purchase history
-- Pagination
 - Sorting
 - Advanced analytics
 - Deployment using cloud services
@@ -1081,7 +1084,11 @@ AI assistance from **ChatGPT** was used during the development of this project f
 - Understanding technical concepts
 - Reviewing implementation steps
 
-AI was used as a development and learning assistant. The project implementation, integration, testing, debugging, and verification were performed as part of the development process.
+For the current kata-alignment changes, ChatGPT was also used to review the API against the requirements, add backend tests before the route and authorization changes, implement those changes, and update documentation. Suggestions were checked against the code and test results before being kept.
+
+## Reflection
+
+AI helped me find gaps faster and draft focused tests. I reviewed the changes, ran the test suites, and made the final decisions. I will discuss the search endpoint, JWT protection, and test evidence in my own words during the interview.
 
 ---
 
@@ -1102,8 +1109,6 @@ This project was developed as part of an assessment/project submission.
 # 👩‍💻 Author
 
 **Shashank Bhat**
-
-B.Tech — Information Technology
 
 ---
 

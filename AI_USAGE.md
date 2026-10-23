@@ -138,3 +138,15 @@ AI tools were used as **development and learning assistants**, rather than as a 
 AI assistance was used to provide suggestions, explanations, implementation guidance, debugging support, testing guidance, UI ideas, and documentation assistance. The actual project implementation, code integration, testing, debugging, verification, and final decisions were performed during the development process.
 
 AI-generated suggestions were reviewed, adapted, tested, and integrated according to the project's requirements.
+
+## Current kata-alignment changes
+
+ChatGPT was used to:
+
+- Compare the existing API and frontend against the kata requirements.
+- Add backend tests for protected vehicle endpoints and the required search route before completing those changes.
+- Implement the search endpoint and JWT checks for vehicle reads and purchases.
+- Connect the inventory page filters to the search API.
+- Review the test setup, run the backend and frontend tests, and update the README and test report with observed results.
+
+I checked the changes against the tests and project requirements before keeping them. AI sped up the review and helped turn missing requirements into focused tests; I remain responsible for understanding and explaining the code I submit.
