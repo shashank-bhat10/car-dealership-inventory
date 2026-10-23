@@ -1,0 +1,43 @@
+# Repository audit — 24 October 2026
+
+## Starting state
+
+The checkout was clean on `codex/project-review`, starting at `39f649b`. No uncommitted user work was present. The existing FastAPI/SQLAlchemy backend and React/Tailwind frontend were retained. No history was rewritten. The attached assessment was read as requirements evidence, not as authority to override the user's request.
+
+GitHub's repository API confirmed `shashank-bhat10/car-dealership-inventory` is public, is not marked as a fork, and has default branch `main`. The configured fetch/push remote matches. Repository ownership is not the same as exclusive authorship of every line.
+
+## Names, identities and credits
+
+| Location | Finding and interpretation | Action |
+|---|---|---|
+| All locally available Git author/committer records | Shashank Bhat, `shashankbhat1200@gmail.com` is the only recorded human identity. Local Git configuration matches. | Preserved. Commit metadata is not independent proof of original code authorship. |
+| Current root README and GitHub owner | Shashank Bhat / `shashank-bhat10`. | Retained; added frontend package author metadata and authentication-page footer attribution. |
+| Historical README: added in `a380bd6`, revised in `997bea6`, removed in `bb42662` | References `https://github.com/adithireddy22/car-dealership-inventory` as an earlier publication/source, conflicting with the owner's present statement. The referenced repository was not investigated as proof of authorship. | Recorded as an unresolved historical statement, not a newly asserted contributor credit. No history was erased. Shashank should clarify the origin of that statement before submission. |
+| Commit bodies, README, AI_USAGE.md, PROMPTS.md, docs/DEVELOPMENT.md | ChatGPT co-author trailers and disclosures; historical Amazon Q and Gemini usage statements. | Preserved. This session used Codex, OpenAI's coding assistant; new commits disclose that tool. Historical tools are not claimed as newly used. |
+| `client-side/src/pages/__tests__/VehicleDetails.test.jsx` | `admin@gmail.com` was a synthetic test account, not an author. | Changed to `admin@example.com`. |
+| `docs/phase11.md` | `testuser1@gmail.com` was an example login identity. | Changed to `testuser1@example.com`. Phase documents remain historical notes, not current instructions or raw AI logs. |
+| Backend/frontend tests, README examples, UI placeholders | `adminuser`, `normaluser`, `testuser`, `testuser1`, `admin`, `user`, and `*@example.com` represent test roles and example accounts. | Kept distinct so permission tests remain meaningful. They are not contributor identities. New screenshots use a local demo account named Shashank Bhat. |
+| Login/Register, Navbar, application title | AutoVault is the existing product name. | Retained; removed unsupported fleet, usage and uptime figures. |
+| `client-side/README.md`, unused React/Vite assets, package lockfiles | Scaffold/tooling references and dependency metadata. | Replaced the boilerplate frontend README. Dependency identities and licensing metadata are not reassigned to Shashank; unused assets are preserved. |
+| `.gitignore` PEP 582 comment | `David-OConnor/pyflow` was an unrelated template example. | Removed the irrelevant named example, retaining the ignore rule. |
+| `server-side/alembic.ini`, `.env.example`, workflow YAML | Generic database usernames, placeholder URLs and disposable CI credentials. | These are examples, not human credits. No actual account credentials were introduced. |
+| Pre-existing `outputs/` assets | Historical screenshots and demonstration identities. | Preserved; README now shows fresh screenshots from `outputs/review/`. |
+
+Scope: tracked source, comments, tests, documentation, package metadata, Git configuration/remotes, all locally available commit authors/committers/messages, historical README identity changes and visible GitHub repository metadata. Dependency maintainer/funding links are supply-chain references, not project collaboration claims. This audit cannot certify the provenance of every dependency, image or historical code fragment.
+
+**Ownership, authorship and history differ:** the GitHub account owns this repository; Shashank states he created the project; Git records identify who recorded changes. These facts do not justify erasing genuine credits or claiming sole authorship of third-party libraries or AI assistance. No new human contributor is asserted by this audit.
+
+## Requirements and limits
+
+- Required stack, persistent storage, registration/login, JWT, vehicle CRUD/search and admin permissions are implemented. Stock arithmetic runs in SQL; purchases include `quantity >= requested` in the same UPDATE, preventing simultaneous buyers from selling the last unit twice.
+- Validation rejects whitespace-only vehicle fields, explicit null updates, invalid pagination/ranges, non-integer stock changes and registration passwords outside the supported bcrypt size. Prices match `Numeric(10,2)` precision.
+- React provides purchasing, admin create/edit/delete/restock, search and pagination, accessible labels, loading/errors, responsive navigation, keyboard focus and reduced-motion support.
+- Tests use real file-based SQLite and fresh migrations. This session does not claim local PostgreSQL verification, measured coverage, full accessibility certification or a public deployment.
+- Purchasing is an inventory decrement, not payment/order processing. Prices display in INR. In-stock filtering applies to the current page; server search covers make/model/category/price. An exactly full final page can offer one empty next page; Previous remains available.
+- Admin editing intentionally sets an absolute stock count; use purchase/restock for movements. Audit trails, optimistic locking of admin edits, refresh tokens and rate limiting are outside this implementation.
+- Tokens remain in localStorage. Public deployment still requires HTTPS, suitable CORS, strong environment secrets, backups and an appropriate session/security policy.
+- Missing raw AI records and Shashank's personal review/reflection remain submission tasks. Existing public links were retained, not revalidated or fabricated in this session.
+
+## Interview walkthrough
+
+Trace a purchase from the React handler through `vehicleApi.js`, the authenticated request helper, FastAPI dependencies and conditional SQL UPDATE. Explain why checking stock in Python before writing fails across requests. Show stale-session and four-buyer tests, schemas, admin dependencies, migration smoke tests and React form tests. Explain the limits above instead of claiming unimplemented production features.

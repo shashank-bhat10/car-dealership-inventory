@@ -26,3 +26,7 @@ This record is **not yet complete**. The following raw exports or public share l
 | ChatGPT repository fixes | The repository setup and current fixes used ChatGPT, but their full session exports/share links have not been supplied. | Add public links or complete unedited logs for these sessions. |
 
 Inaccessible URLs have been removed from the public evidence list. Private IDs are retained only to help locate the original records. No share URLs or conversations have been invented. Setup notes and the AI usage reflection are not substitutes for raw logs.
+
+## 24 October 2026 review session — missing raw record
+
+Shashank must add a complete, unedited export or a public share link for this Codex session, including the resumed work. None has been supplied. This placeholder is not a raw log. The existing links above were already in the repository; their previous access checks were not repeated in this review. Do not substitute AI-written summaries for the required records.

@@ -29,7 +29,7 @@ React calls the REST API using HTTP and sends a JWT in the `Authorization` heade
 
 ## Local setup
 
-Use Python 3.12, Node.js 24, npm and PostgreSQL 16 (the version used in CI). Two terminals are needed: one for the backend and one for the frontend.
+Use Python 3.12 (CI) or 3.14 (verified locally), Node.js 24, npm and PostgreSQL 16 (CI), or file-based SQLite. Two terminals are needed: one for the backend and one for the frontend.
 
 ### 1. Clone
 
@@ -177,34 +177,54 @@ From `client-side/`:
 ```bash
 npm ci
 npm run test:run
+npm run lint
 npm run build
 ```
 
 See [TEST_REPORT.md](TEST_REPORT.md) for observed results and limitations. [GitHub Actions](https://github.com/shashank-bhat10/car-dealership-inventory/actions/workflows/tests.yml) runs backend tests, a fresh PostgreSQL migration/API smoke test, frontend tests and the production build. [Development evidence](docs/DEVELOPMENT.md) records the new Red–Green–Refactor sequences; earlier commits are not presented as proof of original test-first development.
 
+## Reliability and API details
+
+Stock purchases use a conditional SQL UPDATE that checks available quantity and subtracts in one statement. Restocking also uses SQL arithmetic so concurrent increments are not lost. These operations are tested against stale sessions and concurrent buyers using a persistent SQLite test database.
+
+Registration JSON: `{"username":"shashank","email":"shashank@example.com","password":"choose-your-own-password"}`. Login accepts email/password and returns `access_token` and `token_type`. Send `Authorization: Bearer <access_token>` for protected requests. Registration always creates USER accounts; the server reads the current role from the database.
+
+Create/update vehicle JSON uses `make`, `model`, `category`, `price`, `quantity`. Create requires all five; update accepts supplied fields and rejects explicit null. Names are trimmed, price must be positive with at most two decimal places and eight integer digits, and quantity must be a nonnegative JSON integer. Purchase/restock require a positive JSON integer quantity. Passwords require at least six characters and at most 72 UTF-8 bytes (the existing bcrypt implementation's limit).
+
+Responses: 201 for registration/creation, 200 for successful reads/login/updates/inventory operations, 204 for deletion, 400 for insufficient stock, 401 for missing/invalid authentication or failed login, 403 for insufficient role, 404 for missing vehicles, 409 for duplicate registration, and 422 for invalid input. `/db-test` returns 200 when storage is reachable or a generic 503 without exposing connection errors. See `/docs` for exact request/response schemas and the additional admin user-management routes.
+
+Both listing and search support page numbers starting at 1, limits 1–100 and nonnegative ordered price ranges. Listing uses exact field matches; search uses case-insensitive partial matches. Catalog navigation fetches 100 vehicles per page. Its in-stock toggle filters the current page. Prices are displayed in INR. A purchase changes inventory only; no payment is taken.
+
+Optional frontend configuration: copy `client-side/.env.example` to `.env` and set `VITE_API_BASE_URL`. It is public configuration, never a place for secrets. Restart Vite after changes. For deployment, configure the allowed frontend origin in `server-side/app/main.py`; the current CORS settings are for local development.
+
+Generate your own JWT secret, for example with `python -c "import secrets; print(secrets.token_urlsafe(48))"`, and store it only in your untracked backend `.env`. Do not reuse example values. `TEST_DATABASE_URL` is currently required by settings; keep it distinct from the application database. The test fixture drops test tables.
+
 ## Screenshots
 
+Captured from the running application on 24 October 2026 with a separate, persistent local demo database. Vehicle prices and the `example.com` account are demonstration data. These are genuine browser captures, not mockups. Older screenshots remain in `outputs/` as historical assets.
+
 ### Login
-![Login](outputs/login.jpg)
+![Login](outputs/review/login.png)
 
-### Inventory
-![Inventory dashboard](outputs/admin/admin_dashboard.jpg)
+### Inventory on desktop
+![Desktop inventory](outputs/review/inventory-desktop.png)
 
-### Add a vehicle
-![Add vehicle](outputs/admin/admin_addVehicle.jpg)
+### Inventory on mobile
+<img src="outputs/review/inventory-mobile.png" alt="Mobile inventory with navigation and logout controls" width="390" />
 
-### Search
-![Search inventory](outputs/user/user_searchbar.jpg)
+### Sold out
+![Sold-out vehicle](outputs/review/sold-out.png)
 
-### Out of stock
-![Out of stock](outputs/out_of_stock.jpg)
+## Verification and project audit
+
+The 24 October review ran **119 backend tests** and **72 frontend tests** successfully, plus ESLint and the Vite production build. `npm audit fix` applied compatible updates and reported **0 vulnerabilities**. No coverage percentage is claimed. See [TEST_REPORT.md](TEST_REPORT.md) for commands, baseline failures, warnings and browser evidence, and [the repository audit](docs/REPOSITORY_AUDIT.md) for requirements, names/credits, Git-history findings and interview guidance.
 
 ## My AI Usage
 
-**ChatGPT** assisted with requirement review, writing tests, implementation, debugging, GitHub uploads and documentation. The current fixes include the admin editor, migration setup, test commands and CI workflow. The new tests were run while failing, then again after implementation and refactoring.
+This review used **Codex, OpenAI's coding assistant**, for repository/assessment inspection, regression tests, implementation, dependency updates, browser checks, screenshots, documentation and Git operations. New tests were run before the corresponding behavior changes: stock concurrency, validation, role visibility, unsupported statistics, filtering/pagination and safe health errors. Existing history was not rewritten to manufacture TDD evidence.
 
-Earlier project documentation also records **Amazon Q** for planning and **Gemini** for UI ideas. Their accessible raw conversation records have not yet been supplied. [AI_USAGE.md](AI_USAGE.md) distinguishes confirmed work, historical claims and missing records. [PROMPTS.md](PROMPTS.md) contains verified public conversation links and explicitly lists the outstanding records.
+Earlier repository documentation records **ChatGPT** assistance and claims planning/UI assistance from **Amazon Q** and **Gemini**. Those historical disclosures remain in [AI_USAGE.md](AI_USAGE.md); this review does not independently verify missing raw conversations. [PROMPTS.md](PROMPTS.md) preserves existing conversation links and lists records still needed, including this Codex session.
 
-AI helped find missing requirements and speed up implementation. The earlier review still missed the update form and migration setup, which shows why generated claims need to be checked against code and actual test results. I need to understand and explain every change I submit.
+**Personal wording required from Shashank Bhat:** explain which suggestions you personally reviewed, which tests you personally ran, what you changed, and what you learned. The automated tests and reviews in this session were performed by the assistant. They must not be represented as your own manual review. No personal reflection is invented here.
 
-AI-assisted commits use a ChatGPT co-author trailer with two empty lines before it. The two earlier setup commits that omitted it are disclosed in the attribution audit in `AI_USAGE.md`; published history has not been rewritten to conceal that omission.
+AI-assisted commits from this session use `Co-authored-by: Codex <AI@users.noreply.github.com>`. Git collapsed the first backend commit trailer spacing; AI_USAGE.md discloses the deviation, and subsequent commits preserve two empty lines. Historical attribution omissions remain disclosed; Git history is preserved.

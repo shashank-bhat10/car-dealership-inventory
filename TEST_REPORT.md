@@ -1,3 +1,67 @@
+# Test report — 24 October 2026 review
+
+Environment: Windows, Python 3.14.0, Node.js 24.19.0, npm 11.17.0. Original checkout: `39f649b` on `codex/project-review`. This section records commands actually executed in this session. Historical results follow separately.
+
+## Baseline before implementation
+
+- Existing backend suite: **91 passed, 1 warning**, 40.75 seconds. New test files were excluded from this baseline command because they had been authored while the original sandboxed runner was stalled.
+- Existing frontend suite: **65 passed**, 6 files.
+- ESLint: **2 errors, 1 warning** in auth exports and the details-page effect.
+- Dependency installation succeeded after network escalation. Initial npm audit reported **9 vulnerabilities** (7 high, 2 moderate).
+- Initial sandboxed Vitest failed before collecting tests with an EPERM cache error. Rerunning outside the sandbox passed. The original sandboxed backend runner produced no result; the completed baseline was the explicit external run above.
+
+## New test-first work
+
+| Focused command | Red, before behavior change | Green |
+|---|---|---|
+| `python -m pytest -q --tb=line tests/vehicles/test_inventory_safety.py tests/auth/test_registration_validation.py` | 26 failed, 2 passed | 28 passed |
+| `npm run test:run -- src/pages/__tests__/AuthForms.test.jsx src/pages/__tests__/VehicleDetails.test.jsx` | 2 failed, 14 passed | Passed in full suite |
+| `npm run test:run -- src/pages/__tests__/VehicleList.test.jsx` | 2 failed, 12 passed | Passed in full suite |
+| `python -m pytest -q --tb=short tests/test_main.py` | 2 failed, 1 passed | Passed in full suite |
+
+The first concurrent-purchase run returned four HTTP 200 responses for a single available unit. After the atomic update, exactly one request succeeds and three return 400, with final stock zero. A separate deterministic stale-session regression guards against a passing concurrency test merely due to lucky scheduling. Restocking tests verify that another session's increment is preserved.
+
+Validation cases include explicit nulls, whitespace-only fields, precision/price bounds, invalid list filters, boolean/string/fractional inventory quantities, empty/short passwords and bcrypt's UTF-8 byte limit. Frontend additions cover login success/failure, registration payload/success, customer admin-control visibility, unsupported marketing claims, pagination and preserving search focus.
+
+These are newly observed red/green results, not retrospective claims about original TDD. The user asked for completed changes to be committed after verification, so failing intermediate states were not committed. Refactoring separated the auth provider from its hook and kept vehicle loading local to its effect without disabling lint rules.
+
+## Final executed checks
+
+From `server-side/` in PowerShell:
+
+```powershell
+$env:DATABASE_URL = 'sqlite:///./app-test.db'
+$env:TEST_DATABASE_URL = 'sqlite:///./test-suite.db'
+$env:JWT_SECRET_KEY = 'test-secret-key-for-tests'
+.venv\Scripts\python.exe -m pytest -q --tb=short
+```
+
+**119 passed, 1 warning in 60.34 seconds**, exit 0. Includes authentication, permissions, search, create/update/delete, purchasing, restocking, validation and real fresh-database migration tests. The warning is the existing Starlette/httpx TestClient deprecation.
+
+From `client-side/`:
+
+| Command | Actual result |
+|---|---|
+| `npm ci` | Installed locked dependencies; initial advisory count above |
+| `npm audit fix` (two compatible passes) | Final result: 0 vulnerabilities |
+| `npm run test:run` | 72 passed across 7 files, 3.39 seconds, exit 0 |
+| `npm run lint` | Passed, no reported errors/warnings |
+| `npm run build` | Passed: 1,824 modules; JS 279.57 kB (84.25 kB gzip), CSS 53.69 kB (9.98 kB gzip) |
+
+No separate TypeScript or backend static-type/lint configuration exists; none is claimed. Coverage was not measured. No PostgreSQL server was exercised locally in this session. CI retains its PostgreSQL migration smoke test and now includes feature-branch pushes and frontend lint; local results do not assert that the newly pushed CI run has finished.
+
+## Genuine browser checks
+
+FastAPI was started after successful Alembic migrations against a separate `review-demo.db` file. Vite was started on loopback port 5173. A demonstration `example.com` account was registered through the UI and promoted in that demo database using the README's admin setup procedure.
+
+Observed in the actual browser: registration/login; admin add vehicle; purchase stock 3 → 2; restock 2 → 3; edit price 4,500,000 → 4,450,000; search; disabled Sold Out at stock 0. Desktop and mobile layouts were inspected. Mobile navigation/logout had been hidden by existing CSS and are now visible; category filters wrap. A mobile viewport check found document width equal to scroll width. Screenshots are in `outputs/review/`; demonstration prices/accounts are not real inventory or user data.
+
+Delete/cancel, error/retry and customer permission flows are additionally covered by automated tests; they are not claimed as a complete browser end-to-end suite. No public deployment, exhaustive accessibility audit or load test is claimed.
+
+## Historical report (retained, not rerun evidence)
+
+The following report was already in the repository. Its external CI/clean-clone claims were not independently revalidated during this session.
+
 # Test Report
 
 Results below come from executed commands against commit `bb42662e6d9e069aef0cf181211f64e0051df52b`. The final report commit changes documentation and database ignore rules only.

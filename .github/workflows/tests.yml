@@ -2,7 +2,7 @@ name: Tests
 
 on:
   push:
-    branches: [main]
+    branches: [main, 'codex/**']
   pull_request:
   workflow_dispatch:
 
@@ -71,6 +71,7 @@ jobs:
           set -o pipefail
           npm run test:run | tee frontend-results.txt
       - run: npm run build
+      - run: npm run lint
       - uses: actions/upload-artifact@v4
         if: always()
         with:

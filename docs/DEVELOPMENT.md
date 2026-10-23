@@ -42,3 +42,7 @@ JWT_SECRET_KEY=test-secret-key-for-tests \
 The fresh-schema smoke test uses Alembic, not `Base.metadata.create_all`. It checks migrations twice, table existence, registration, login, admin creation/update and rejection of a regular-user update. GitHub Actions additionally supplies a fresh PostgreSQL database to this test.
 
 See [TEST_REPORT.md](../TEST_REPORT.md) for the final clean-clone suite results. See [AI_USAGE.md](../AI_USAGE.md) for the two historical commits that omitted AI trailers and the current attribution format.
+
+## 24 October review
+
+The new red/green observations are in [TEST_REPORT.md](../TEST_REPORT.md). Regression tests were executed before implementation for atomic inventory, input validation, auth forms/role controls, truthful UI statistics, pagination/filter focus and safe health responses. Existing Git history is untouched. The user's instruction to commit completed work after verification was followed; this review does not fabricate failing intermediate commits.

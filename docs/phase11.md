@@ -104,7 +104,7 @@ Current concept:
     You are authenticated.
 
     Username: testuser1
-    Email: testuser1@gmail.com
+    Email: testuser1@example.com
     Role: USER
 
 The dashboard should now become a useful dealership dashboard.
