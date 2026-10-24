@@ -15,6 +15,18 @@ The empty-catalog state now explains that inventory has not been added yet and g
 
 The follow-up changes did not touch backend code. The latest recorded backend run remains 121 passed with one existing warning (see the section below). The configured local SQLite database had zero vehicle rows when inspected; the README screenshots were captured using a separate persistent demo database. No records were inserted into the configured application database during this audit.
 
+## Local demo inventory and backend recheck — 24 October 2026
+
+Added `python -m app.seed_demo`, a development-only helper that refuses non-development environments, non-SQLite databases, and catalogs that already contain vehicles. After confirming that the configured database was development SQLite with zero vehicles, the command added four demonstration vehicles, including one sold-out listing. The local database now contains Toyota Camry Hybrid (3), Honda CR-V (2), Hyundai Ioniq 5 (1), and Mazda Mazda3 (0). Prices are demonstration values in INR. No user accounts were added.
+
+| Check | Actual result |
+|---|---|
+| `python -m pytest -q --tb=short tests/test_seed_demo.py` | 4 passed, 1 existing deprecation warning, exit 0 |
+| `python -m pytest -q --tb=short` | **125 passed, 1 existing Starlette/httpx deprecation warning**, 96.33 seconds, exit 0 |
+| Local configured database query | 4 vehicles, including 1 sold-out vehicle |
+
+The full backend suite uses the separate test database configured by `TEST_DATABASE_URL`; the demonstration rows remain in the application database.
+
 ## Executed checks for this pass
 
 Use the environment variables and commands documented below. Run backend pytest processes sequentially against a given TEST_DATABASE_URL: fixtures recreate tables.

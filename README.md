@@ -91,6 +91,7 @@ Linux/macOS:
 
 ```bash
 .venv/bin/python -m alembic upgrade head
+.venv/bin/python -m app.seed_demo  # optional; fresh development SQLite only
 .venv/bin/python -m uvicorn app.main:app --reload
 ```
 
@@ -98,6 +99,7 @@ Windows PowerShell:
 
 ```powershell
 .venv\Scripts\python.exe -m alembic upgrade head
+.venv\Scripts\python.exe -m app.seed_demo  # optional; fresh development SQLite only
 .venv\Scripts\python.exe -m uvicorn app.main:app --reload
 ```
 
@@ -120,7 +122,7 @@ Open <http://localhost:5173>. The frontend calls `http://127.0.0.1:8000`; keep b
 
 ### 6. Try the admin workflow
 
-Fresh databases start with an empty catalog. Register an account in the app; new accounts are always regular users. For a local demo, promote your own registered account using SQL in the **application** database, then use the **Add Vehicle** form to create demonstration inventory:
+Fresh databases start with an empty catalog. For a development SQLite database, `python -m app.seed_demo` adds four demo vehicles, including a sold-out vehicle. It refuses to run outside development, against non-SQLite storage, or when the catalog already has records. For PostgreSQL or an existing catalog, register an account in the app; new accounts are always regular users. For a local admin demo, promote your own registered account using SQL in the **application** database, then use the **Add Vehicle** form:
 
 ```sql
 UPDATE users SET role = 'ADMIN' WHERE email = 'your_registered_email@example.com';
@@ -217,7 +219,7 @@ Captured from the running application on 24 October 2026 with a separate, persis
 
 ## Verification and project audit
 
-The 24 October review ran **121 backend tests** and **76 frontend tests** successfully, plus ESLint and the Vite production build. `npm audit fix` applied compatible updates and reported **0 vulnerabilities**. No coverage percentage is claimed. See [TEST_REPORT.md](TEST_REPORT.md) for commands, baseline failures, warnings and browser evidence, and [the repository audit](docs/REPOSITORY_AUDIT.md) for requirements, names/credits, Git-history findings and interview guidance.
+The 24 October review ran **125 backend tests** and **76 frontend tests** successfully, plus ESLint and the Vite production build. `npm audit fix` applied compatible updates and reported **0 vulnerabilities**. No coverage percentage is claimed. See [TEST_REPORT.md](TEST_REPORT.md) for commands, baseline failures, warnings and browser evidence, and [the repository audit](docs/REPOSITORY_AUDIT.md) for requirements, names/credits, Git-history findings and interview guidance.
 
 ## My AI Usage
 
