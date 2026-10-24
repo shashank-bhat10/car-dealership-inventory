@@ -14,7 +14,7 @@ Checked against the supplied **TDD Kata.docx** on 24 October 2026. This is an ev
 | Tests and report | TEST_REPORT.md records commands, failures, fixes, results and limits |
 | TDD history | New red/green results are recorded honestly. Earlier commits do not prove universal test-first development; do not manufacture that history. |
 | AI attribution | Required tool disclosures retained; new AI-assisted commits carry the actual tool trailer. Historical trailer-spacing exception is disclosed in AI_USAGE.md. |
-| My AI Usage reflection | Tool use and verification are documented factually. A first-person reflection is not included because the owner's personal experience was not supplied. |
+| My AI Usage reflection | A first-person draft is included in README.md and marked for the owner to confirm before submission. It sticks to documented project work and does not claim the owner personally ran assistant-executed checks. |
 | Raw AI chats / public links | PROMPTS.md lists seven previously available public links. Additional historical records are not present and need original sources if required. |
 | Public repository | Configured repository: https://github.com/shashank-bhat10/car-dealership-inventory |
 | Optional deployment | No live deployment is claimed. This is optional in the assessment. |

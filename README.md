@@ -227,7 +227,9 @@ The 24 October review ran **125 backend tests** and **76 frontend tests** succes
 
 **How suggestions were checked.** Changes in this repository were reviewed against the existing application, automated tests, lint and production build. The measured results and limits are recorded in [TEST_REPORT.md](TEST_REPORT.md). Tool-run checks are attributed to the environment that ran them.
 
-**Personal reflection.** This repository records the tools and verification evidence, but does not supply a first-person reflection on the project owner’s experience. Add personal wording only if it accurately reflects that experience.
+**Personal reflection draft — confirm that it reflects your experience before submission.**
+
+AI tools helped me work through planning, implementation options, test design, debugging, and documentation while I kept the existing project structure. I asked for changes to stay understandable, especially around server-side permissions, database-backed inventory, and stock-safe purchases. The implementation was checked with backend and frontend tests, lint, a production build, and browser flows; the test report records the commands and results. I want to be able to explain these decisions and their limits in my own words during an interview.
 
 **Conversation records.** [PROMPTS.md](PROMPTS.md) lists the available original public conversation links and identifies records not present in this checkout. It does not reproduce missing conversations.
 
