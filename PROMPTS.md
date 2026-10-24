@@ -1,6 +1,6 @@
 # AI conversation records
 
-This file is an index of original AI conversations for the assessment. The links below point to the conversations themselves; they are not AI-written summaries. The seven ChatGPT links were checked anonymously on 23 October 2026 and returned conversation content at that time. On 24 October, Shashank provided a screenshot showing that ChatGPT Settings listed no shared links after deleting the Codex share. The older links have not been rechecked since; do not assume they remain accessible or include them as working submission evidence without testing them.
+This file is an index of original AI conversations for the assessment. The links below point to the conversations themselves; they are not AI-written summaries. The seven ChatGPT links were checked anonymously on 23 October 2026 and returned conversation content at that time. Their current availability has not been rechecked; verify a link before relying on it as submission evidence.
 
 ## Existing public ChatGPT conversations
 
@@ -24,6 +24,5 @@ These records cannot be reconstructed from source code or notes. Add only the or
 | ChatGPT repository setup/fixes | No complete raw log or accessible link is included above. | Add the original export or link if available. |
 | Gemini UI ideas | The recorded Gemini page showed a sign-in screen when checked anonymously. | Add an original export or share link if available. |
 | Amazon Q planning | Earlier project notes report this use; no transcript or link is present here. | Add the original record if it exists; otherwise keep the disclosure in AI_USAGE.md and say the log is unavailable. |
-| Codex review on 24 October 2026 | No transcript is included. A public share was briefly created, then its link was removed from the current files at Shashank's request. A previous Git commit retains the link until the share is revoked in account settings. | Do not republish this conversation. Revoke its existing link in ChatGPT Settings → Data controls → Shared links → Manage. |
 
 This index is complete for the authentic public ChatGPT links currently available in the project. It does not claim to contain every historical AI conversation. Missing source records are disclosed rather than fabricated.

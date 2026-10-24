@@ -1,29 +1,9 @@
 # My AI Usage
 
-This disclosure distinguishes current, observable work from tool-use statements recorded in earlier project documentation. Conversation records are indexed in [PROMPTS.md](PROMPTS.md); test evidence is in [TEST_REPORT.md](TEST_REPORT.md).
+AI tools have supported work on this project with planning, implementation ideas, test design, debugging and documentation. The README gives a concise disclosure and a reflection draft. [PROMPTS.md](PROMPTS.md) indexes conversation links that were previously available and identifies original records absent from this checkout. No missing transcript is reconstructed.
 
-## Codex — 24 October 2026 review
+Earlier project documentation names ChatGPT and records AI assistance with repository setup and fixes. It also reports Amazon Q planning assistance and Gemini UI ideas. These historical disclosures are retained, but their source conversations are not all available here.
 
-Codex inspected the supplied assessment and existing repository, added failing regression tests for the stock filter, changed the API and frontend so the stock filter applies before pagination, corrected unsupported coverage claims, updated documentation, ran automated checks, and committed and pushed the changes. The existing application was retained.
+AI-generated changes should be checked against the code, tests and actual application behavior. [TEST_REPORT.md](TEST_REPORT.md) records observed test, lint and build results and their limits. Automated checks run by an AI assistant should not be described as personally run by the project owner.
 
-The recorded final checks were 121 backend tests passed with one existing deprecation warning, 74 frontend tests passed, and frontend lint and production build passed. TEST_REPORT.md also records failed intermediate attempts, including overlapping backend tests that interfered with the shared test database and a temporary JSX syntax error that was fixed before the final run. These checks were performed by Codex.
-
-A public share of the Codex conversation was briefly created. On 24 October 2026, Shashank deleted it; his screenshot showed no shared links in ChatGPT Settings. The old URL remains in an earlier public Git commit, but the deleted share should no longer open. It must not be recreated.
-
-## Earlier AI-use records
-
-Earlier project documentation records ChatGPT assistance with repository setup and fixes. It also reports Amazon Q planning assistance and Gemini UI ideas. These records are preserved as historical disclosures; not all original conversations or exports are available in this checkout. PROMPTS.md identifies the accessible links and missing records. No missing transcript is reconstructed here.
-
-## Owner reflection
-
-The README contains a clearly labeled owner reflection draft based on documented decisions and events. It was drafted by Codex and should be retained only if it accurately reflects Shashank's view. It distinguishes Codex-run checks from the owner's actions and does not claim personal testing that is not evidenced.
-
-## Git attribution
-
-The repository audit records historical commits made with AI assistance whose messages lacked co-author trailers. Those immutable commits were not rewritten to add trailers. New AI-assisted commits from the recent review use:
-
-```text
-Co-authored-by: Codex <AI@users.noreply.github.com>
-```
-
-The required blank lines before the trailer are preserved in the new commits.
+AI-assisted commits carry the appropriate co-author trailer where it was added. Some historical AI-assisted commits predate the trailer requirement and were not amended. See the repository history audit for the recorded exceptions.

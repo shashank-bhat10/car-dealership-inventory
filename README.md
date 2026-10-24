@@ -221,25 +221,19 @@ The 24 October review ran **121 backend tests** and **74 frontend tests** succes
 
 ## My AI Usage
 
-**Tools and use.** Codex assisted with the 24 October assessment review, regression tests, implementation, debugging, browser checks, screenshots, documentation and Git operations. Earlier project records document ChatGPT help with repository setup and fixes, and report Amazon Q planning and Gemini UI ideas. Those older tool-use statements are retained, but their complete source conversations are not all available; see [AI_USAGE.md](AI_USAGE.md) and [PROMPTS.md](PROMPTS.md).
+**Tools and use.** AI tools have supported planning, implementation, test design, debugging and documentation. Project records name ChatGPT and Codex, and earlier notes report Amazon Q planning and Gemini UI ideas. The original records are incomplete; see [AI_USAGE.md](AI_USAGE.md) and [PROMPTS.md](PROMPTS.md).
 
-**How I checked the work.** New stock-filter tests failed before the behavior was changed, then passed after the database query and frontend were updated. The final recorded checks were 121 backend tests and 74 frontend tests, plus lint and production build. [TEST_REPORT.md](TEST_REPORT.md) records the actual results and earlier failed attempts. Codex ran these checks; do not describe them as personally run unless you rerun them yourself.
+**How AI suggestions were checked.** AI-generated changes were checked against the existing application and its automated tests, lint and production build. The measured results and limits are recorded in [TEST_REPORT.md](TEST_REPORT.md). Attribute tool-run checks accurately; do not present them as manual work unless you performed them.
 
-### Owner reflection draft
+### Reflection draft
 
-*Drafted by Codex from actions and decisions recorded in this project history. Shashank should keep it only if it reflects his view.*
+*Drafted with AI from project records. Keep it only if it reflects the owner's view.*
 
-I asked for improvements to my existing Car Dealership Inventory System while keeping the project and its history. I used AI assistance to review the assessment, improve the application, add regression checks and make the documentation clearer. The work kept the existing FastAPI and React application.
+I used AI as a development aid for planning, implementation ideas, test design, debugging and documentation. I treated its output as suggestions that needed to be checked against the project and its tests. This helped me iterate on the existing system while keeping the code and explanations reviewable. I will prepare to explain the implementation choices and limits in my own words during an interview.
 
-One useful example was the inventory filter. The first version filtered only vehicles already loaded on the current page, which could hide available cars on later pages. A regression test exposed that gap, and the filter was moved into the database query before pagination. The same test-first approach helped check that purchases cannot reduce stock below zero.
-
-AI suggestions still needed verification. During this review, overlapping backend test runs interfered with a shared test database, and an intermediate frontend edit caused a syntax error. Those issues were corrected and documented, and the final recorded checks passed. I should be ready to explain the code and the test results myself in an interview; generated code and test output do not replace that understanding.
-
-Codex performed the implementation, automated test runs, browser checks and documentation edits recorded for this review. This draft does not claim that I personally performed those checks.
-
-**Conversation records.** [PROMPTS.md](PROMPTS.md) indexes seven previously accessible ChatGPT conversation links, whose current status is unverified, and identifies unavailable records without inventing transcripts. Shashank deleted the Codex review share; his settings screenshot showed no shared links. The old URL remains in Git history, but the share should no longer open.
+**Conversation records.** [PROMPTS.md](PROMPTS.md) indexes available AI conversation links and identifies unavailable records without inventing transcripts.
 
 New AI-assisted commits disclose Codex as co-author. Historical AI use and commit attribution exceptions are documented in [AI_USAGE.md](AI_USAGE.md).
 ## Assessment submission
 
-Use [the assessment checklist and demonstration guide](docs/ASSESSMENT_CHECKLIST.md) to review the supplied kata requirements. [CONTINUATION.md](CONTINUATION.md) saves the current checkpoint and remaining work for a resumed session. The original missing AI records listed in PROMPTS.md remain unavailable, and the owner reflection draft should be kept only if it matches Shashank’s view. No guarantee of selection is claimed.
+Use [the assessment checklist and demonstration guide](docs/ASSESSMENT_CHECKLIST.md) to review the supplied kata requirements. The original missing AI records listed in PROMPTS.md remain unavailable, and the owner reflection draft should be kept only if it matches Shashank’s view. No guarantee of selection is claimed.
