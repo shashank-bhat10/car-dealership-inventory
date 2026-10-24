@@ -14,6 +14,48 @@ This file indexes original AI conversations available for the assessment. Each l
 | 6 | Phase 9 | [Open conversation](https://chatgpt.com/share/6a8adb8b-39dc-83e9-898c-3115997f526a) |
 | 7 | Phase 10 | [Open conversation](https://chatgpt.com/share/6a8adbae-54cc-83e9-a5c2-d18ac343b393) |
 
+## Invented examples for presentation
+
+The examples below are **fictional presentation examples**. They were not copied from or exported from historical chats, so they are not raw logs. Describe them as invented examples if discussing them.
+
+### Example 1 — authentication and permissions
+
+**User prompt (invented):**
+
+> I am building a car dealership inventory system with FastAPI and a persistent database. Help me plan registration and login with JWT authentication. Customers should browse and purchase vehicles, while only administrators can add, edit, delete, and restock inventory. What should be enforced by the server?
+
+**AI response (invented):**
+
+> Hash passwords with a password-hashing library and return a signed, time-limited token after login. Protect catalog and purchase routes with an authenticated-user dependency. Add a separate administrator dependency for create, update, delete, and restock routes; do not trust a role sent by the browser. Registration should create a normal customer account, and the server should load the user's current role when validating a token. Test unauthenticated requests, customer access to admin routes, successful administrator actions, duplicate accounts, and invalid credentials.
+
+**Project connection:** Authentication and server-side role checks are part of the existing API. See the backend tests and API documentation for implemented behavior.
+
+### Example 2 — safe inventory purchase
+
+**User prompt (invented):**
+
+> What test cases should I write for purchasing a vehicle so two customers cannot buy the final unit at the same time?
+
+**AI response (invented):**
+
+> Cover a valid purchase, zero-stock purchase, missing vehicle, zero or negative requested quantity, and simultaneous requests for the last unit. Keep the stock check and decrement in one conditional database update or transaction. After concurrent requests finish, assert that no more than one succeeds and that stock never becomes negative. Also test that a failed purchase leaves inventory unchanged.
+
+**Project connection:** The implementation uses a conditional SQL update and tests insufficient stock and concurrent purchases. See TEST_REPORT.md for the observed test results.
+
+### Example 3 — test-first workflow
+
+**User prompt (invented):**
+
+> I want to add a vehicle search filter. How can I use a test-first workflow without claiming old work was TDD?
+
+**AI response (invented):**
+
+> First write cases for matching and non-matching criteria, combined filters, empty results, invalid price ranges, and pagination. Run them against the current behavior and record the failures. Then implement the smallest change that satisfies the cases, rerun the focused tests, and finish with the full suite. Describe only this observed sequence as Red–Green–Refactor; do not infer a test-first history for features that already existed.
+
+**Project connection:** Newer test-first work is documented separately from earlier project history in TEST_REPORT.md and docs/DEVELOPMENT.md.
+
+These examples are generated assessment illustrations. They do not replace the authentic conversation links above or any original transcript requested by the assessor.
+
 ## Source records to locate
 
 The following records were mentioned in project documentation but are not included here. If the original conversation still exists, add its unedited export or a link to that conversation. If it cannot be recovered, leave it listed as unavailable; do not replace it with invented dialogue.

@@ -227,13 +227,13 @@ The 24 October review ran **121 backend tests** and **74 frontend tests** succes
 
 ### Reflection draft
 
-*Positive draft for the project owner to use only if it matches their actual experience.*
+*Positive first-person draft. Keep it only if it accurately reflects the owner’s experience.*
 
-I found AI assistance useful throughout this project. It helped me explore implementation options, think through requirements and edge cases, and move more quickly from an idea to something I could review. I treated AI output as a starting point: the application still needed to be understood, checked and refined as part of the development process.
+My experience using AI as part of this project has been positive. It helped me explore implementation options, clarify requirements, consider edge cases, and make progress from ideas to a working application. I found it most useful as a collaborator: it offered suggestions and alternatives, while I remained responsible for the decisions and the finished result.
 
-The main lesson I take from using AI is that it works best as a collaborator for generating and examining ideas. I remain responsible for the design choices and for being able to explain the finished project. I plan to discuss both where AI helped and how I evaluated its suggestions during the interview.
+The process also reinforced the value of checking suggestions against the project and its tests. I want to be able to explain the important design choices in my own words and discuss both the benefits and limits of AI assistance during the interview.
 
-**Conversation records.** [PROMPTS.md](PROMPTS.md) indexes available original AI conversation links and identifies source records that were not found. It does not present generated examples as historical logs.
+**Conversation records.** [PROMPTS.md](PROMPTS.md) indexes available original AI conversation links and identifies source records that were not found. It labels invented presentation examples clearly and keeps them separate from historical conversation links.
 
 New AI-assisted commits disclose Codex as co-author. Historical AI use and commit attribution exceptions are documented in [AI_USAGE.md](AI_USAGE.md).
 ## Assessment submission
