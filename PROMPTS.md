@@ -1,6 +1,8 @@
 # AI conversation records
 
-This file lists the original public conversation links that were already available in the project materials. These links point to conversations; they are not transcript exports. The seven links were checked anonymously on 23 October 2026 and returned conversation content then. Their current availability has not been rechecked.
+This file lists the original public conversation links supplied in the project materials. These links point to conversations; they are not transcript exports.
+
+**Anonymous availability check — 24 October 2026:** all seven links returned HTTP 200 with embedded conversation data and the matching conversation title. Each request used a fresh HTTP client with no existing sign-in session or browser cookies. A title or status code alone was not treated as proof of conversation access. No transcripts were copied into this repository. Link availability can change after this check.
 
 ## Available ChatGPT conversation links
 
@@ -20,8 +22,8 @@ The following source records were referenced in earlier project documentation bu
 
 | Record | Status |
 |---|---|
-| Additional ChatGPT project and repository sessions | Original transcript or accessible link not present here |
-| Gemini UI discussion | Original transcript or accessible link not present here |
-| Amazon Q planning session | Original transcript or accessible link not present here |
+| Additional ChatGPT and Codex project sessions | No supplied original export or accessible public link is present here |
+| Gemini UI discussion | A private application URL was recovered from earlier Git revisions; an anonymous request opened a sign-in page rather than the conversation. No public share link or original export was recovered. |
+| Amazon Q planning session | Tool use is recorded in the original README and confirmed by the owner; no original transcript or public conversation link was found. |
 
 This index is not a complete export of all AI conversations used during the project. It contains only the links listed above and does not reconstruct missing conversation records.

@@ -1,6 +1,70 @@
-# Resumed assessment improvements — 24 October 2026
+# Latest submission verification — 24 October 2026
 
-The existing application was retained. This pass adds server-side stock filtering before pagination and resets the frontend page when the stock filter changes. The repository contains seven previously available public conversation links; additional source records and the owner's personal reflection are not present.
+Code revision verified: `b337c2591d95eb55b5615fcf5a56b3b043caa01e` from a fresh public clone of `codex/project-review`. The submission update after this run changes documentation and adds genuine screenshots; it does not change application code. The original working database was not used for this rehearsal.
+
+## Clean setup actually executed
+
+```powershell
+git clone --branch codex/project-review --single-branch https://github.com/shashank-bhat10/car-dealership-inventory.git <new-directory>
+cd <new-directory>\server-side
+python -m venv .venv
+.venv\Scripts\python.exe -m pip install -r requirements.txt --disable-pip-version-check --quiet
+# Configure an untracked .env with distinct rehearsal-app.db and rehearsal-test.db
+# SQLite URLs, a freshly generated random JWT secret, and ENVIRONMENT=development.
+.venv\Scripts\python.exe -m alembic upgrade head
+.venv\Scripts\python.exe -m alembic upgrade head
+.venv\Scripts\python.exe -m app.seed_demo
+.venv\Scripts\python.exe -m pytest -q --tb=short
+```
+
+The new virtual environment was created using the installed Python 3.14 interpreter through the existing environment's interpreter. No installed project dependencies were copied into the fresh environment. The new application database was migrated, the second upgrade succeeded without schema changes, and the seed command added four demo vehicles. The test database had a separate file URL.
+
+From the clone's `client-side/`:
+
+```powershell
+npm ci --no-fund
+npm run test:run
+npm run lint
+$env:VITE_API_BASE_URL = 'http://127.0.0.1:8765'
+npm run build
+npm run preview -- --host 127.0.0.1 --port 5173 --strictPort
+```
+
+The backend was started with `.venv\Scripts\python.exe -m uvicorn app.main:app --host 127.0.0.1 --port 8765`. This temporary API port keeps the rehearsal distinct from the normal README default of port 8000. The preview origin remained on allowed local port 5173.
+
+| Executed check | Actual result |
+|---|---|
+| Fresh Python dependency installation | Passed from requirements.txt, exit 0 |
+| `npm ci --no-fund` | 261 packages installed; 0 vulnerabilities reported |
+| Alembic upgrade, repeated | Both passed, exit 0 |
+| Development SQLite seed | 4 vehicles added, exit 0 |
+| Full backend pytest suite | **125 passed, 1 existing Starlette/httpx deprecation warning**, 55.65 seconds, exit 0 |
+| Frontend Vitest suite | **76 passed in 8 files**, 3.36 seconds, exit 0 |
+| ESLint | Passed, exit 0 |
+| Vite production build | Passed; 1,824 modules, JS 280.08 kB / 84.42 kB gzip, CSS 54.02 kB / 10.09 kB gzip |
+| Clean-clone tracked-file status after tests/demo | Clean; local environment, database, dependencies and build artifacts are ignored |
+
+## Live browser and API rehearsal
+
+Against that clean clone and its disposable database, the browser showed successful customer registration and login, a populated four-vehicle catalog, Toyota search, purchase reducing stock 3 to 2, no-match search recovery, and combined SUV/price/in-stock filters returning the Honda CR-V. The Mazda at zero stock had a disabled Sold Out button. Logout returned to sign-in; direct navigation to `/vehicles` while logged out redirected to sign-in.
+
+A separate demo admin was registered and promoted in the local application database using the documented procedure. The browser added a Kia Seltos at price 2,000,000 and quantity 2, edited the price to 1,950,000, restocked from 2 to 3, then deleted it. The list returned to the four seed vehicles. An authenticated HTTP request subsequently confirmed the deleted ID returns 404.
+
+Fresh HTTP requests to the live API additionally confirmed 401 without authentication; 403 for customer create, update, delete and restock; 400 for purchase at zero stock; 422 for a zero purchase quantity; 404 for a missing vehicle; and 401 for an incorrect password. Combining make, model, category, price and in-stock query parameters returned the expected single vehicle.
+
+Genuine browser captures are `outputs/review/rehearsal-filters.png` and `outputs/review/rehearsal-admin.png`. All accounts and vehicles used in this rehearsal are demonstration data. This is an observed browser rehearsal, not a committed unattended end-to-end test suite. No PostgreSQL local run, coverage measurement, full accessibility audit, load test or public deployment is claimed.
+
+## Submission and AI records
+
+The public repository's default branch is `main`; the assessment version is `codex/project-review`. README.md and the submission guide now link directly to that branch, and the clone command selects it explicitly. The owner supplied the personal reflection now in README.md and confirmed use of Amazon Q and Gemini as recorded in the initial README.
+
+All seven existing public ChatGPT links were checked with fresh HTTP clients without a signed-in session or existing browser cookies. Each returned HTTP 200, a matching title and embedded conversation data. A historical private Gemini URL recovered from Git required sign-in. No Amazon Q transcript or additional supplied ChatGPT/Codex export was found in the repository records checked. PROMPTS.md describes those source gaps accurately; no private conversation was published or reconstructed.
+
+---
+
+# Earlier assessment improvements — 24 October 2026
+
+The existing application was retained. This pass added server-side stock filtering before pagination and resets the frontend page when the stock filter changes. The owner reflection and anonymous-link checks were subsequently completed as recorded in the latest verification above. Additional original source records remain unavailable as listed in PROMPTS.md.
 
 ## Follow-up audit verification — 24 October 2026
 

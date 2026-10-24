@@ -2,6 +2,8 @@
 
 **Author: Shashank Bhat**
 
+**Assessment branch:** [codex/project-review](https://github.com/shashank-bhat10/car-dealership-inventory/tree/codex/project-review). Submit this branch URL; the setup commands below check out this version explicitly.
+
 A full-stack inventory application built with React, Tailwind CSS, FastAPI, SQLAlchemy, PostgreSQL and JWT authentication. Customers can browse, search and purchase vehicles. Administrators can add, edit, delete and restock vehicles.
 
 ## Features
@@ -34,7 +36,7 @@ Use Python 3.12 (CI) or 3.14 (verified locally), Node.js 24, npm and PostgreSQL 
 ### 1. Clone
 
 ```bash
-git clone https://github.com/shashank-bhat10/car-dealership-inventory.git
+git clone --branch codex/project-review --single-branch https://github.com/shashank-bhat10/car-dealership-inventory.git
 cd car-dealership-inventory
 ```
 
@@ -217,23 +219,31 @@ Captured from the running application on 24 October 2026 with a separate, persis
 ### Sold out
 ![Sold-out vehicle](outputs/review/sold-out.png)
 
+### Combined filters — fresh-clone rehearsal
+![SUV, price-range and in-stock filters returning the Honda CR-V](outputs/review/rehearsal-filters.png)
+
+### Admin update and restock — fresh-clone rehearsal
+![Admin demo vehicle after a price update and stock increase](outputs/review/rehearsal-admin.png)
+
+The two rehearsal captures above were taken from a fresh clone on 24 October 2026 using a separate disposable SQLite database. The temporary admin vehicle was deleted after its screenshot was taken.
+
 ## Verification and project audit
 
 The 24 October review ran **125 backend tests** and **76 frontend tests** successfully, plus ESLint and the Vite production build. `npm audit fix` applied compatible updates and reported **0 vulnerabilities**. No coverage percentage is claimed. See [TEST_REPORT.md](TEST_REPORT.md) for commands, baseline failures, warnings and browser evidence, and [the repository audit](docs/REPOSITORY_AUDIT.md) for requirements, names/credits, Git-history findings and interview guidance.
 
 ## My AI Usage
 
-**Tools and use.** AI tools have supported planning, implementation, test design, debugging and documentation. Project records name ChatGPT and Codex, and earlier notes report Amazon Q planning and Gemini UI ideas. The original records are incomplete; see [AI_USAGE.md](AI_USAGE.md) and [PROMPTS.md](PROMPTS.md).
+**Tools and use.** I used ChatGPT and Codex for debugging, test suggestions, implementation support and documentation; Amazon Q for the implementation plan and development approach; and Gemini for UI prompts and design ideas. Original conversation records are incomplete; see [AI_USAGE.md](AI_USAGE.md) and [PROMPTS.md](PROMPTS.md).
 
 **How suggestions were checked.** Changes in this repository were reviewed against the existing application, automated tests, lint and production build. The measured results and limits are recorded in [TEST_REPORT.md](TEST_REPORT.md). Tool-run checks are attributed to the environment that ran them.
 
-**Personal reflection draft — confirm that it reflects your experience before submission.**
+**Personal reflection.**
 
-AI tools helped me work through planning, implementation options, test design, debugging, and documentation while I kept the existing project structure. I asked for changes to stay understandable, especially around server-side permissions, database-backed inventory, and stock-safe purchases. The implementation was checked with backend and frontend tests, lint, a production build, and browser flows; the test report records the commands and results. I want to be able to explain these decisions and their limits in my own words during an interview.
+I built this car dealership inventory system from scratch, including the React frontend, FastAPI backend, database, authentication, and inventory features. I used ChatGPT and Codex as support tools to help debug issues, suggest tests, and improve the documentation. I reviewed the AI-assisted changes and their recorded test results before keeping them. I learned to treat AI output as a suggestion and verify it against the code. I can explain how authentication, admin permissions, and safe stock updates work.
 
 **Conversation records.** [PROMPTS.md](PROMPTS.md) lists the available original public conversation links and identifies records not present in this checkout. It does not reproduce missing conversations.
 
 New AI-assisted commits disclose Codex as co-author. Historical AI use and commit attribution exceptions are documented in [AI_USAGE.md](AI_USAGE.md).
 ## Assessment submission
 
-Use [the assessment checklist and demonstration guide](docs/ASSESSMENT_CHECKLIST.md) to review the supplied kata requirements. Confirm that conversation links still open before submission and add only original source records that can be recovered. No guarantee of selection is claimed.
+Submit [the assessment branch](https://github.com/shashank-bhat10/car-dealership-inventory/tree/codex/project-review), which includes these improvements. Use [the assessment checklist and demonstration guide](docs/ASSESSMENT_CHECKLIST.md) for the five-minute walkthrough and technical explanations. The seven public conversation links were checked anonymously on 24 October 2026; [PROMPTS.md](PROMPTS.md) documents their availability and the remaining source-record gaps. No guarantee of selection is claimed.

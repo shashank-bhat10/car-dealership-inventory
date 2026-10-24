@@ -37,7 +37,7 @@ Scope: tracked source, comments, tests, documentation, package metadata, Git con
 - Purchasing is an inventory decrement, not payment/order processing. Prices display in INR. In-stock filtering now runs in the database before pagination; server search covers make/model/category/price. An exactly full final page can offer one empty next page; Previous remains available.
 - Admin editing intentionally sets an absolute stock count; use purchase/restock for movements. Audit trails, optimistic locking of admin edits, refresh tokens and rate limiting are outside this implementation.
 - Tokens remain in localStorage. Public deployment still requires HTTPS, suitable CORS, strong environment secrets, backups and an appropriate session/security policy.
-- PROMPTS.md lists seven existing public conversation links; additional source records and the owner's personal reflection are not present. The links' current availability has not been rechecked.
+- PROMPTS.md lists seven public ChatGPT links, each checked anonymously on 24 October 2026 with conversation data returned. The owner supplied the personal reflection now in README.md and confirmed Amazon Q and Gemini use. A recovered private Gemini URL requires sign-in; additional original AI records remain unavailable as described in PROMPTS.md.
 
 ## Interview walkthrough
 
