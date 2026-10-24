@@ -1,6 +1,19 @@
 # Resumed assessment improvements — 24 October 2026
 
-The existing application was retained. This pass adds server-side stock filtering before pagination and resets the frontend page when the stock filter changes. The supplied Word assessment was reread; its missing personal AI reflection and raw-log requirements remain explicitly outstanding.
+The existing application was retained. This pass adds server-side stock filtering before pagination and resets the frontend page when the stock filter changes. The repository contains seven previously available public conversation links; additional source records and the owner's personal reflection are not present.
+
+## Follow-up audit verification — 24 October 2026
+
+The empty-catalog state now explains that inventory has not been added yet and gives administrators a direct first-vehicle action. Filtered empty results give a clear-filter action. This addresses the blank-catalog experience without inserting sample records into a user's database. The README explains that new databases start empty and instructs administrators to add demonstration vehicles through the application.
+
+| Check | Actual result |
+|---|---|
+| `npm run test:run -- src/pages/__tests__/VehicleList.test.jsx` | 17 passed, 1 file, exit 0 |
+| `npm run test:run` | 76 passed, 8 files, exit 0 |
+| `npm run lint` | Passed, exit 0 |
+| `npm run build` | Passed; 1,824 modules, JS 280.08 kB / 84.42 kB gzip, CSS 54.02 kB / 10.09 kB gzip |
+
+The follow-up changes did not touch backend code. The latest recorded backend run remains 121 passed with one existing warning (see the section below). The configured local SQLite database had zero vehicle rows when inspected; the README screenshots were captured using a separate persistent demo database. No records were inserted into the configured application database during this audit.
 
 ## Executed checks for this pass
 
@@ -32,7 +45,7 @@ Environment: Windows, Python 3.14.0, Node.js 24.19.0, npm 11.17.0. Original chec
 
 - Existing backend suite: **91 passed, 1 warning**, 40.75 seconds. New test files were excluded from this baseline command because they had been authored while the original sandboxed runner was stalled.
 - Existing frontend suite: **65 passed**, 6 files.
-- ESLint: **2 errors, 1 warning** in auth exports and the details-page effect.
+- Historical ESLint result at the original checkout: **2 errors, 1 warning** in auth exports and the details-page effect. This was corrected in a later implementation pass. The follow-up audit above reran `npm run lint` successfully on the current files.
 - Dependency installation succeeded after network escalation. Initial npm audit reported **9 vulnerabilities** (7 high, 2 moderate).
 - Initial sandboxed Vitest failed before collecting tests with an EPERM cache error. Rerunning outside the sandbox passed. The original sandboxed backend runner produced no result; the completed baseline was the explicit external run above.
 
@@ -138,6 +151,6 @@ The new editor tests cover admin prefilled fields and saving, regular-user exclu
 ## Limits and remaining checks
 
 - The backend emits one Starlette/httpx test-client deprecation warning; no tests failed. Coverage percentage was not measured.
-- A separate `npm run lint` check reported two existing errors and one warning in `AuthContext.jsx` and `VehicleDetails.jsx` (Fast Refresh exports and effect/state/dependency rules). Lint is not included in the passing test/build claim above.
-- No new browser screenshot or end-to-end browser result is claimed: the browser binary was unavailable and its download failed. Existing screenshots remain in the README.
+- Historical only: that checkout's separate `npm run lint` check reported two errors and one warning in `AuthContext.jsx` and `VehicleDetails.jsx`. The current follow-up audit reran lint successfully, as recorded above.
+- At that historical checkout, no new browser screenshot or end-to-end browser result was available because the browser binary was unavailable and its download failed. Later genuine browser checks are recorded in the current review section above.
 - Test success does not complete the missing AI conversation records listed in [PROMPTS.md](PROMPTS.md).

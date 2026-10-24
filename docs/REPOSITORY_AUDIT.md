@@ -32,11 +32,12 @@ Scope: tracked source, comments, tests, documentation, package metadata, Git con
 - Required stack, persistent storage, registration/login, JWT, vehicle CRUD/search and admin permissions are implemented. Stock arithmetic runs in SQL; purchases include `quantity >= requested` in the same UPDATE, preventing simultaneous buyers from selling the last unit twice.
 - Validation rejects whitespace-only vehicle fields, explicit null updates, invalid pagination/ranges, non-integer stock changes and registration passwords outside the supported bcrypt size. Prices match `Numeric(10,2)` precision.
 - React provides purchasing, admin create/edit/delete/restock, search and pagination, accessible labels, loading/errors, responsive navigation, keyboard focus and reduced-motion support.
+- A fresh database may have no inventory records. The catalog now distinguishes an empty inventory from filters with no matches and gives admins a direct way to add the first vehicle. README demo setup explicitly uses the admin form; no sample inventory was written into the configured local database.
 - Tests use real file-based SQLite and fresh migrations. This session does not claim local PostgreSQL verification, measured coverage, full accessibility certification or a public deployment.
 - Purchasing is an inventory decrement, not payment/order processing. Prices display in INR. In-stock filtering now runs in the database before pagination; server search covers make/model/category/price. An exactly full final page can offer one empty next page; Previous remains available.
 - Admin editing intentionally sets an absolute stock count; use purchase/restock for movements. Audit trails, optimistic locking of admin edits, refresh tokens and rate limiting are outside this implementation.
 - Tokens remain in localStorage. Public deployment still requires HTTPS, suitable CORS, strong environment secrets, backups and an appropriate session/security policy.
-- Missing raw AI records and Shashank's personal review/reflection remain submission tasks. Existing public links were retained, not revalidated or fabricated in this session.
+- PROMPTS.md lists seven existing public conversation links; additional source records and the owner's personal reflection are not present. The links' current availability has not been rechecked.
 
 ## Interview walkthrough
 

@@ -114,6 +114,30 @@ describe('VehicleList', () => {
     expect(search).toHaveFocus()
   })
 
+  it('explains an empty catalog and gives administrators a first-vehicle action', async () => {
+    searchVehicles.mockResolvedValueOnce([])
+    useAuth.mockReturnValue({ user: { username: 'admin', role: 'ADMIN' } })
+
+    renderVehicleList()
+
+    expect(await screen.findByRole('heading', { name: 'Inventory is empty' })).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: 'Add the first vehicle' })).toHaveAttribute('href', '/vehicles/add')
+  })
+
+  it('offers to clear filters when there are no matching vehicles', async () => {
+    searchVehicles.mockResolvedValueOnce([])
+
+    renderVehicleList()
+    fireEvent.change(await screen.findByPlaceholderText('Search by make or model...'), {
+      target: { value: 'No match' },
+    })
+
+    expect(await screen.findByRole('heading', { name: 'No matching vehicles' })).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: 'Clear filters' }))
+
+    expect(await screen.findByText('Toyota')).toBeInTheDocument()
+  })
+
   beforeEach(() => {
     vi.clearAllMocks()
 

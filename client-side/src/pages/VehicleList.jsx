@@ -124,6 +124,14 @@ function VehicleList() {
       : vehicles
   }, [vehicles, stockOnly, minPrice, maxPrice])
 
+  const hasActiveFilters = Boolean(
+    search.trim() ||
+    category !== 'All' ||
+    minPrice !== '' ||
+    maxPrice !== '' ||
+    stockOnly
+  )
+
 
   /* =========================================================
      RESET FILTERS
@@ -442,12 +450,24 @@ function VehicleList() {
         ====================================================== */}
 
         {!error && filteredVehicles.length === 0 && (
-
-            <div className="error-box">
-              No vehicles match your filters.
-            </div>
-
-          )}
+          <section className="empty-state" aria-live="polite">
+            <h2>{hasActiveFilters ? 'No matching vehicles' : 'Inventory is empty'}</h2>
+            <p>
+              {hasActiveFilters
+                ? 'Try changing or resetting your filters to see more vehicles.'
+                : 'There are no vehicles in the catalog yet.'}
+            </p>
+            {hasActiveFilters ? (
+              <button type="button" className="view-btn" onClick={resetFilters}>
+                Clear filters
+              </button>
+            ) : isAdmin ? (
+              <Link className="view-btn inline-block" to="/vehicles/add">
+                Add the first vehicle
+              </Link>
+            ) : null}
+          </section>
+        )}
 
 
         {/* =====================================================

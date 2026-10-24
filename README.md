@@ -120,7 +120,7 @@ Open <http://localhost:5173>. The frontend calls `http://127.0.0.1:8000`; keep b
 
 ### 6. Try the admin workflow
 
-Register an account in the app. New accounts are always regular users. For a local demo, promote your own registered account using SQL in the **application** database:
+Fresh databases start with an empty catalog. Register an account in the app; new accounts are always regular users. For a local demo, promote your own registered account using SQL in the **application** database, then use the **Add Vehicle** form to create demonstration inventory:
 
 ```sql
 UPDATE users SET role = 'ADMIN' WHERE email = 'your_registered_email@example.com';
@@ -217,25 +217,19 @@ Captured from the running application on 24 October 2026 with a separate, persis
 
 ## Verification and project audit
 
-The 24 October review ran **121 backend tests** and **74 frontend tests** successfully, plus ESLint and the Vite production build. `npm audit fix` applied compatible updates and reported **0 vulnerabilities**. No coverage percentage is claimed. See [TEST_REPORT.md](TEST_REPORT.md) for commands, baseline failures, warnings and browser evidence, and [the repository audit](docs/REPOSITORY_AUDIT.md) for requirements, names/credits, Git-history findings and interview guidance.
+The 24 October review ran **121 backend tests** and **76 frontend tests** successfully, plus ESLint and the Vite production build. `npm audit fix` applied compatible updates and reported **0 vulnerabilities**. No coverage percentage is claimed. See [TEST_REPORT.md](TEST_REPORT.md) for commands, baseline failures, warnings and browser evidence, and [the repository audit](docs/REPOSITORY_AUDIT.md) for requirements, names/credits, Git-history findings and interview guidance.
 
 ## My AI Usage
 
 **Tools and use.** AI tools have supported planning, implementation, test design, debugging and documentation. Project records name ChatGPT and Codex, and earlier notes report Amazon Q planning and Gemini UI ideas. The original records are incomplete; see [AI_USAGE.md](AI_USAGE.md) and [PROMPTS.md](PROMPTS.md).
 
-**How AI suggestions were checked.** AI-generated changes were checked against the existing application and its automated tests, lint and production build. The measured results and limits are recorded in [TEST_REPORT.md](TEST_REPORT.md). Attribute tool-run checks accurately; do not present them as manual work unless you performed them.
+**How suggestions were checked.** Changes in this repository were reviewed against the existing application, automated tests, lint and production build. The measured results and limits are recorded in [TEST_REPORT.md](TEST_REPORT.md). Tool-run checks are attributed to the environment that ran them.
 
-### Reflection draft
+**Personal reflection.** This repository records the tools and verification evidence, but does not supply a first-person reflection on the project owner’s experience. Add personal wording only if it accurately reflects that experience.
 
-*Positive first-person draft. Keep it only if it accurately reflects the owner’s experience.*
-
-My experience using AI as part of this project has been positive. It helped me explore implementation options, clarify requirements, consider edge cases, and make progress from ideas to a working application. I found it most useful as a collaborator: it offered suggestions and alternatives, while I remained responsible for the decisions and the finished result.
-
-The process also reinforced the value of checking suggestions against the project and its tests. I want to be able to explain the important design choices in my own words and discuss both the benefits and limits of AI assistance during the interview.
-
-**Conversation records.** [PROMPTS.md](PROMPTS.md) indexes available original AI conversation links and identifies source records that were not found. It labels invented presentation examples clearly and keeps them separate from historical conversation links.
+**Conversation records.** [PROMPTS.md](PROMPTS.md) lists the available original public conversation links and identifies records not present in this checkout. It does not reproduce missing conversations.
 
 New AI-assisted commits disclose Codex as co-author. Historical AI use and commit attribution exceptions are documented in [AI_USAGE.md](AI_USAGE.md).
 ## Assessment submission
 
-Use [the assessment checklist and demonstration guide](docs/ASSESSMENT_CHECKLIST.md) to review the supplied kata requirements. The source records listed in PROMPTS.md should be added only if they can be recovered, and the reflection draft should be used only if it accurately describes the owner’s experience. No guarantee of selection is claimed.
+Use [the assessment checklist and demonstration guide](docs/ASSESSMENT_CHECKLIST.md) to review the supplied kata requirements. Confirm that conversation links still open before submission and add only original source records that can be recovered. No guarantee of selection is claimed.
