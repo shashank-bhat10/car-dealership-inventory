@@ -237,7 +237,7 @@ AI suggestions still needed verification. During this review, overlapping backen
 
 Codex performed the implementation, automated test runs, browser checks and documentation edits recorded for this review. This draft does not claim that I personally performed those checks.
 
-**Conversation records.** [PROMPTS.md](PROMPTS.md) indexes seven existing public ChatGPT conversations and identifies unavailable records without inventing transcripts. The Codex review share was removed from the current files at Shashank's request; it must still be revoked from ChatGPT settings because a previous public Git commit contains its URL.
+**Conversation records.** [PROMPTS.md](PROMPTS.md) indexes seven previously accessible ChatGPT conversation links, whose current status is unverified, and identifies unavailable records without inventing transcripts. Shashank deleted the Codex review share; his settings screenshot showed no shared links. The old URL remains in Git history, but the share should no longer open.
 
 New AI-assisted commits disclose Codex as co-author. Historical AI use and commit attribution exceptions are documented in [AI_USAGE.md](AI_USAGE.md).
 ## Assessment submission

@@ -1,6 +1,6 @@
 # AI conversation records
 
-This file is an index of original AI conversations for the assessment. The links below point to the conversations themselves; they are not AI-written summaries. The seven ChatGPT links were checked anonymously on 23 October 2026 and returned conversation content at that time. They are public links: anyone who obtains one can read its shared conversation. Recheck them before submission.
+This file is an index of original AI conversations for the assessment. The links below point to the conversations themselves; they are not AI-written summaries. The seven ChatGPT links were checked anonymously on 23 October 2026 and returned conversation content at that time. On 24 October, Shashank provided a screenshot showing that ChatGPT Settings listed no shared links after deleting the Codex share. The older links have not been rechecked since; do not assume they remain accessible or include them as working submission evidence without testing them.
 
 ## Existing public ChatGPT conversations
 

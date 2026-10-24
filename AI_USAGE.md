@@ -8,7 +8,7 @@ Codex inspected the supplied assessment and existing repository, added failing r
 
 The recorded final checks were 121 backend tests passed with one existing deprecation warning, 74 frontend tests passed, and frontend lint and production build passed. TEST_REPORT.md also records failed intermediate attempts, including overlapping backend tests that interfered with the shared test database and a temporary JSX syntax error that was fixed before the final run. These checks were performed by Codex.
 
-A public share of the Codex conversation was briefly created, then removed from the current project files at Shashank's request. The URL remains in an earlier public Git commit and the share must be revoked separately in ChatGPT Settings → Data controls → Shared links → Manage. It must not be recreated.
+A public share of the Codex conversation was briefly created. On 24 October 2026, Shashank deleted it; his screenshot showed no shared links in ChatGPT Settings. The old URL remains in an earlier public Git commit, but the deleted share should no longer open. It must not be recreated.
 
 ## Earlier AI-use records
 
