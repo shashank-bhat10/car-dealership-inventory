@@ -227,13 +227,15 @@ The 24 October review ran **121 backend tests** and **74 frontend tests** succes
 
 ### Reflection draft
 
-*Drafted with AI from project records. Keep it only if it reflects the owner's view.*
+*Positive draft for the project owner to use only if it matches their actual experience.*
 
-I used AI as a development aid for planning, implementation ideas, test design, debugging and documentation. I treated its output as suggestions that needed to be checked against the project and its tests. This helped me iterate on the existing system while keeping the code and explanations reviewable. I will prepare to explain the implementation choices and limits in my own words during an interview.
+I found AI assistance useful throughout this project. It helped me explore implementation options, think through requirements and edge cases, and move more quickly from an idea to something I could review. I treated AI output as a starting point: the application still needed to be understood, checked and refined as part of the development process.
 
-**Conversation records.** [PROMPTS.md](PROMPTS.md) indexes available AI conversation links and identifies unavailable records without inventing transcripts.
+The main lesson I take from using AI is that it works best as a collaborator for generating and examining ideas. I remain responsible for the design choices and for being able to explain the finished project. I plan to discuss both where AI helped and how I evaluated its suggestions during the interview.
+
+**Conversation records.** [PROMPTS.md](PROMPTS.md) indexes available original AI conversation links and identifies source records that were not found. It does not present generated examples as historical logs.
 
 New AI-assisted commits disclose Codex as co-author. Historical AI use and commit attribution exceptions are documented in [AI_USAGE.md](AI_USAGE.md).
 ## Assessment submission
 
-Use [the assessment checklist and demonstration guide](docs/ASSESSMENT_CHECKLIST.md) to review the supplied kata requirements. The original missing AI records listed in PROMPTS.md remain unavailable, and the owner reflection draft should be kept only if it matches Shashank’s view. No guarantee of selection is claimed.
+Use [the assessment checklist and demonstration guide](docs/ASSESSMENT_CHECKLIST.md) to review the supplied kata requirements. The source records listed in PROMPTS.md should be added only if they can be recovered, and the reflection draft should be used only if it accurately describes the owner’s experience. No guarantee of selection is claimed.
