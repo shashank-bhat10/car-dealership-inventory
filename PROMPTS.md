@@ -1,34 +1,29 @@
 # AI conversation records
 
-The following public ChatGPT share links were requested without cookies or account authentication on 23 October 2026. Each returned HTTP 200 and a conversation payload. A successful HTTP response alone was not used as proof: the private links below returned HTTP 200 too, but showed sign-in screens without conversation data.
+This file is an index of original AI conversations for the assessment. The links below point to the conversations themselves; they are not AI-written summaries. The seven ChatGPT links were checked anonymously on 23 October 2026 and returned conversation content at that time. They are public links: anyone who obtains one can read its shared conversation. Recheck them before submission.
 
-## Accessible public conversations
+## Existing public ChatGPT conversations
 
-1. [Design Inventory System](https://chatgpt.com/share/6a88960e-ef8c-83e8-a48f-e38098082940)
-2. [Phase 4](https://chatgpt.com/share/6a8adafe-2198-83ee-b08a-004f97b75a10)
-3. [Phase 5](https://chatgpt.com/share/6a8adb3b-b6d4-83e9-8227-ab64d325c23a)
-4. [Phase 6](https://chatgpt.com/share/6a8adb64-9dc4-83e8-a095-9c00f1c93ed6)
-5. [Phases 7 and 8](https://chatgpt.com/share/6a8adb7a-bdc8-83ee-8211-67e4e430e38c)
-6. [Phase 9](https://chatgpt.com/share/6a8adb8b-39dc-83e9-898c-3115997f526a)
-7. [Phase 10](https://chatgpt.com/share/6a8adbae-54cc-83e9-a5c2-d18ac343b393)
+| # | Conversation | Record |
+|---:|---|---|
+| 1 | Design Inventory System | [Open conversation](https://chatgpt.com/share/6a88960e-ef8c-83e8-a48f-e38098082940) |
+| 2 | Phase 4 | [Open conversation](https://chatgpt.com/share/6a8adafe-2198-83ee-b08a-004f97b75a10) |
+| 3 | Phase 5 | [Open conversation](https://chatgpt.com/share/6a8adb3b-b6d4-83e9-8227-ab64d325c23a) |
+| 4 | Phase 6 | [Open conversation](https://chatgpt.com/share/6a8adb64-9dc4-83e8-a095-9c00f1c93ed6) |
+| 5 | Phases 7 and 8 | [Open conversation](https://chatgpt.com/share/6a8adb7a-bdc8-83ee-8211-67e4e430e38c) |
+| 6 | Phase 9 | [Open conversation](https://chatgpt.com/share/6a8adb8b-39dc-83e9-898c-3115997f526a) |
+| 7 | Phase 10 | [Open conversation](https://chatgpt.com/share/6a8adbae-54cc-83e9-a5c2-d18ac343b393) |
 
-These are links to the conversations themselves, not generated summaries.
+## Records not present in this repository
 
-## Outstanding records — required before submission
+These records cannot be reconstructed from source code or notes. Add only the original unedited export or a link to the original conversation if it is available. Do not write a replacement transcript or label a summary as a raw log.
 
-This record is **not yet complete**. The following raw exports or public share links must be supplied by the account owner:
-
-| Tool / record | Anonymous check or missing item | Required action |
+| Tool / session recorded in project history | Current evidence | Assessment action |
 |---|---|---|
-| ChatGPT conversation `6a888fca-1308-83ee-812a-e36681cf00c2` | The `/c/` URL returned a login screen, not a conversation. | Use Share in that conversation or provide its complete unedited export. |
-| Gemini conversation `efade7804ccd8254` | The `/app/` URL returned a sign-in page. | Create a public share link or provide its complete unedited export. |
-| Amazon Q | No raw chat log or public link was present. Earlier documentation claims planning assistance. | Supply the original unedited conversation records and confirm that usage. |
-| ChatGPT repository fixes | The repository setup and current fixes used ChatGPT, but their full session exports/share links have not been supplied. | Add public links or complete unedited logs for these sessions. |
+| ChatGPT project conversation | Its private conversation page showed a sign-in screen when checked anonymously. | If needed, provide the complete original export or create a share only if you are comfortable making it accessible to link holders. |
+| ChatGPT repository setup/fixes | No complete raw log or accessible link is included above. | Add the original export or link if available. |
+| Gemini UI ideas | The recorded Gemini page showed a sign-in screen when checked anonymously. | Add an original export or share link if available. |
+| Amazon Q planning | Earlier project notes report this use; no transcript or link is present here. | Add the original record if it exists; otherwise keep the disclosure in AI_USAGE.md and say the log is unavailable. |
+| Codex review on 24 October 2026 | No transcript is included. A public share was briefly created, then its link was removed from the current files at Shashank's request. A previous Git commit retains the link until the share is revoked in account settings. | Do not republish this conversation. Revoke its existing link in ChatGPT Settings → Data controls → Shared links → Manage. |
 
-Inaccessible URLs have been removed from the public evidence list. Private IDs are retained only to help locate the original records. No share URLs or conversations have been invented. Setup notes and the AI usage reflection are not substitutes for raw logs.
-
-## Codex review conversation — share cleanup pending
-
-A public share link for this conversation was created and added to a previous revision of this file. Shashank has asked for it to be revoked. The current revision removes the URL, but this edit alone does not invalidate the share or remove the URL from Git's earlier commit history. Revoke the link in ChatGPT under **Settings → Data controls → Shared links → Manage**, then delete the matching item. Verify that the URL no longer opens.
-
-Do not recreate or republish this conversation link. The other missing-record table above remains applicable; those records are not available in this checkout and must not be fabricated.
+This index is complete for the authentic public ChatGPT links currently available in the project. It does not claim to contain every historical AI conversation. Missing source records are disclosed rather than fabricated.

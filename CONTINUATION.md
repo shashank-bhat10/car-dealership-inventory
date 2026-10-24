@@ -29,6 +29,6 @@ Branch: `codex/project-review`. Continue the existing FastAPI/React project; pre
 ## AI documentation follow-up
 
 - A public share snapshot was created, then removed from the current PROMPTS.md at Shashank's request. The share still needs revocation under ChatGPT Settings → Data controls → Shared links → Manage. A prior public Git commit retains the URL until that share is revoked.
-- Replaced the empty reflection placeholder with an explicitly Codex-drafted reflection on observed benefits, mistakes, corrections and division of work in README.md and AI_USAGE.md.
+- Reworked PROMPTS.md into an index of seven existing public ChatGPT records and explicitly identified unavailable source conversations. Replaced repeated reflection prose with one owner reflection draft in README.md, clearly labeled as Codex-drafted and subject to Shashank’s review. Reconciled AI_USAGE.md with the evidence.
 - This does not invent Shashank's personal review or learning experiences. Older private ChatGPT/Gemini/Amazon Q records remain unavailable; keep the missing-record disclosures.
 - Documentation-only follow-up; application verification remains 121 backend and 74 frontend tests, lint/build passing from the preceding implementation commit.
