@@ -27,10 +27,8 @@ This record is **not yet complete**. The following raw exports or public share l
 
 Inaccessible URLs have been removed from the public evidence list. Private IDs are retained only to help locate the original records. No share URLs or conversations have been invented. Setup notes and the AI usage reflection are not substitutes for raw logs.
 
-## Codex review conversation — genuine public share
+## Codex review conversation — share cleanup pending
 
-[Open the Codex review conversation](https://chatgpt.com/s/cx_6adc3008af30819191a6729176ef52b7)
+A public share link for this conversation was created and added to a previous revision of this file. Shashank has asked for it to be revoked. The current revision removes the URL, but this edit alone does not invalidate the share or remove the URL from Git's earlier commit history. Revoke the link in ChatGPT under **Settings → Data controls → Shared links → Manage**, then delete the matching item. Verify that the URL no longer opens.
 
-Created using Codex's conversation-sharing tool on 24 October 2026 at Shashank's request to complete the AI records. The tool returned this URL with a public audience. It is a conversation share, not a reconstructed transcript or an AI-written summary. The share is an immutable snapshot: messages after its creation are not included. It does not replace missing conversations from other tools or other sessions. No claim is made that this one snapshot contains every earlier conversation used to build the project.
-
-The earlier missing-record table remains applicable. Those original records are not available in this checkout, and cannot be recreated truthfully from code, documentation or recollection.
+Do not recreate or republish this conversation link. The other missing-record table above remains applicable; those records are not available in this checkout and must not be fabricated.

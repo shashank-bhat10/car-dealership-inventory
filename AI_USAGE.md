@@ -59,7 +59,7 @@ Codex inspected the existing repository and assessment, wrote and ran regression
 
 No new Gemini or Amazon Q use is claimed. Existing statements above describe prior repository records and were not independently revalidated in this session. Historical ChatGPT trailer text and commit author records were retained during the later repository history rewrite, which removed the obsolete README attribution. New assisted commits use `Co-authored-by: Codex <AI@users.noreply.github.com>` with two empty lines before the trailer.
 
-PROMPTS.md now includes a genuine public share snapshot of this Codex review, created by the conversation-sharing tool. Other missing records remain unavailable. This document is a disclosure summary, not a raw conversation log.
+A public share snapshot of this Codex review was created and then removed from the current PROMPTS.md at Shashank’s request. It must still be revoked in ChatGPT settings; the previous Git commit retains its URL. Other missing records remain unavailable. This document is a disclosure summary, not a raw conversation log.
 
 ### Trailer spacing correction
 
