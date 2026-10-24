@@ -27,6 +27,10 @@ This record is **not yet complete**. The following raw exports or public share l
 
 Inaccessible URLs have been removed from the public evidence list. Private IDs are retained only to help locate the original records. No share URLs or conversations have been invented. Setup notes and the AI usage reflection are not substitutes for raw logs.
 
-## 24 October 2026 review session — missing raw record
+## Codex review conversation — genuine public share
 
-Shashank must add a complete, unedited export or a public share link for this Codex session, including the resumed work. None has been supplied. This placeholder is not a raw log. The existing links above were already in the repository; their previous access checks were not repeated in this review. Do not substitute AI-written summaries for the required records.
+[Open the Codex review conversation](https://chatgpt.com/s/cx_6adc3008af30819191a6729176ef52b7)
+
+Created using Codex's conversation-sharing tool on 24 October 2026 at Shashank's request to complete the AI records. The tool returned this URL with a public audience. It is a conversation share, not a reconstructed transcript or an AI-written summary. The share is an immutable snapshot: messages after its creation are not included. It does not replace missing conversations from other tools or other sessions. No claim is made that this one snapshot contains every earlier conversation used to build the project.
+
+The earlier missing-record table remains applicable. Those original records are not available in this checkout, and cannot be recreated truthfully from code, documentation or recollection.

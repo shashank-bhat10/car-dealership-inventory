@@ -25,3 +25,10 @@ Branch: `codex/project-review`. Continue the existing FastAPI/React project; pre
 - Pagination currently offers a next page whenever exactly 100 results are returned; a full final page may lead to an empty next page.
 - Preserve required AI disclosures and third-party dependency licenses. Historical authorship must not be falsified.
 - Read this file, README.md, TEST_REPORT.md and `git status` before resuming. Verify actual saved state instead of assuming an interrupted command completed.
+
+## AI documentation follow-up
+
+- Added a genuine public share snapshot of this Codex chat to PROMPTS.md.
+- Replaced the empty reflection placeholder with an explicitly Codex-drafted reflection on observed benefits, mistakes, corrections and division of work in README.md and AI_USAGE.md.
+- This does not invent Shashank's personal review or learning experiences. Older private ChatGPT/Gemini/Amazon Q records remain unavailable; keep the missing-record disclosures.
+- Documentation-only follow-up; application verification remains 121 backend and 74 frontend tests, lint/build passing from the preceding implementation commit.

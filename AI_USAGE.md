@@ -41,9 +41,13 @@ Co-authored-by: ChatGPT <chatgpt@users.noreply.github.com>
 
 The two empty lines immediately before the trailer are intentional.
 
-## Reflection — personal wording required
+## Reflection on the recorded workflow
 
-Shashank Bhat must add his own account of reviewing, testing and changing AI suggestions. The prior first-person draft was not evidence that he performed those actions. This session's reviews, tests and browser checks were performed by Codex.
+**Reflection on the recorded workflow (drafted by Codex):** AI assistance helped turn broad assessment requirements into focused checks and changes while retaining the existing application. The strongest example is inventory safety: failing tests exposed overselling, and a conditional database update made the stock check and decrement atomic. The later stock-filter tests exposed another concrete issue: filtering only the displayed page could hide available vehicles elsewhere in the database.
+
+AI output also required correction. An overlapping test run interfered with the shared test database, an intermediate frontend edit introduced a syntax error, and an older document contained unsupported coverage claims. These were identified and corrected, with the failed attempts and final verification recorded in TEST_REPORT.md. This experience supports using executable tests, reviewed diffs and accurate documentation as evidence, rather than treating generated code or confident prose as proof of correctness.
+
+Shashank supplied the requirements, directed the work to preserve the existing project, and requested improvements and transparent AI attribution. Codex performed the recorded implementation, automated checks and documentation edits. This reflection describes observable work; it does not claim that Shashank personally ran those checks, independently reviewed each change, or had particular learning experiences. A personal account cannot be inferred from assistant activity.
 
 ## Records still needed
 
@@ -55,7 +59,7 @@ Codex inspected the existing repository and assessment, wrote and ran regression
 
 No new Gemini or Amazon Q use is claimed. Existing statements above describe prior repository records and were not independently revalidated in this session. Historical ChatGPT trailer text and commit author records were retained during the later repository history rewrite, which removed the obsolete README attribution. New assisted commits use `Co-authored-by: Codex <AI@users.noreply.github.com>` with two empty lines before the trailer.
 
-The complete raw export or a public share link for this Codex session must be added by Shashank. This document is a disclosure summary, not a raw conversation log.
+PROMPTS.md now includes a genuine public share snapshot of this Codex review, created by the conversation-sharing tool. Other missing records remain unavailable. This document is a disclosure summary, not a raw conversation log.
 
 ### Trailer spacing correction
 
